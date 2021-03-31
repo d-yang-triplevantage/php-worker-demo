@@ -20,9 +20,9 @@ try{
   foreach ($dbh->query($sql) as $row) {
       //指定Columnを一覧表示
 
-      print($row['FirstName']);      
-      print($row['LastName']);
-      $name = $row['name'];
+      print($row['firstname']);      
+      print($row['lastname']);
+      $name = $row['lastname'];
       print($name);
 
   }
