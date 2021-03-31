@@ -33,8 +33,11 @@ try{
      $schema='salesforce001';
       print("======salesforce001.Lead=========");
       //中間テーブル登録
-      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES($sfid, $schema)');
-      $prepIns001->execute();
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES(:sfid, :schema)');
+      $prepIns001->execute(array($sfid,$schema));
+      
+      
+      
   }
 
   //B社データ処理（中間テーブル取り込み）
@@ -56,8 +59,8 @@ try{
       print("======salesforce002.Lead=========");
       
       //中間テーブル登録
-      $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES($sfid, $schema)');
-      $prepIns002->execute();
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES(:sfid, :schema)');
+      $prepIns001->execute(array($sfid,$schema));
   }
   
 
