@@ -1,35 +1,38 @@
 <?php
 
-$app = new Silex\Application();
-$app['debug'] = true;
-
 $dbopts = parse_url(getenv('DATABASE_URL'));
-$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-               array(
-                'pdo.server' => array(
-                   'driver'   => 'pgsql',
-                   'user' => $dbopts["user"],
-                   'password' => $dbopts["pass"],
-                   'host' => $dbopts["host"],
-                   'port' => $dbopts["port"],
-                   'dbname' => ltrim($dbopts["path"],'/')
-                   )
-               )
-);
 
-//   $sql = "insert into test_table(id,name) values(2,'hello world')";
-//   $stmt = $app['pdo']->prepare($sql);
-//   $stmt->execute();
+$DBHOST = $dbopts["host"];
+$DBPORT = $dbopts["port"];
+$DBNAME = ltrim($dbopts["path"],'/');
+$DBUSER = $dbopts["user"];
+$DBPASS = $dbopts["pass"];
 
-  $st = $app['pdo']->prepare('SELECT LastName FROM salesforce001.Lead');
-  $st->execute();
+try{
+  //DB接続
+  $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+   //SQL作成
+  $sql = 'select LastName,FirstName from salesforce001.Lead';
+  //SQL例
+  //$sql = 'select * from "SchemeName"."TableName"';
 
-  $names = array();
-  while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-    $app['monolog']->addDebug('Row ' . $row['LastName']);
-    $LastName[] = $row;
-    echo $LastName[]
+  //SQL実行
+  foreach ($dbh->query($sql) as $row) {
+      //指定Columnを一覧表示
+
+      print($row['FirstName']);      
+      print($row['LastName']);
+      $name = $row['name'];
+      print($name);
+
   }
-  
-$app->run();
 
+}catch(PDOException $e){
+  print("接続失敗");
+  print($e);
+  die();
+}
+
+//データベースへの接続を閉じる
+$dbh = null;
+?>
