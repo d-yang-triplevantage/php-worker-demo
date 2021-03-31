@@ -26,11 +26,11 @@ try{
       print($row['firstname'].'\t');      
       print($row['lastname'].'\t');
       print($row['sfid'].'\t');      
-      print($row['schema'].'\t');
+     // print($row['schema'].'\t');
       print($row['email']);
      // $name = $row['lastname'];
      $sfid=$row['sfid'];
-     $schema=$row['schema'];
+     $schema='salesforce001';
       print("======salesforce001.Lead=========");
       //中間テーブル登録
       $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES($sfid, $schema)');
@@ -48,11 +48,11 @@ try{
       print($row['firstname'].'\t');      
       print($row['lastname'].'\t');
       print($row['sfid'].'\t');      
-      print($row['schema'].'\t');
+     // print($row['schema'].'\t');
       print($row['email']);
      // $name = $row['lastname'];
      $sfid=$row['sfid'];
-     $schema=$row['schema'];
+     $schema='salesforce002';
       print("======salesforce002.Lead=========");
       
       //中間テーブル登録
