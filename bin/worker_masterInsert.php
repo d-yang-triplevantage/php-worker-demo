@@ -16,7 +16,7 @@ try{
    //SQL作成
    
    
-  $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b
+  $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blastname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b
                where a.lastname = b.lastname
                    and a.firstname = b.firstname
                    and a.email = b.email
@@ -25,8 +25,6 @@ try{
 
   //SQL例
   //$sql = 'select * from "SchemeName"."TableName"';
-
-  $count = 0;
   
   $stmt  = $dbh->query($sql);
   $count = 0;
