@@ -48,8 +48,7 @@ try{
      //出力中間テーブル登録
      $prepIns = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_lead(id,sfid,schema,firstname,lastname,email,company,vectorno__c) VALUES(:id,:sfid,:schema,:firstname,:lastname,:email,:company,:vectorno__c)');
      $prepIns->execute(array($id,$sfid,$schema,$firstname,$lastname,$email,$company,$vectorno__c));
-           
-     }
+   
   }
 
 }catch(PDOException $e){
