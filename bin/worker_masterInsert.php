@@ -38,13 +38,13 @@ try{
 
      
       
-      print($row['asfid']);      
-      print($row['aschema']);
-      print($row['bsfid']);      
-      print($row['bschema']);
-      print($row['bemail']);
-      print($row['blastname']);
-      print($row['bfirstname']);
+      print($row['asfid'].'\n');      
+      print($row['aschema'].'\n');
+      print($row['bsfid'].'\n');      
+      print($row['bschema'].'\n');
+      print($row['bemail'].'\n');
+      print($row['blastname'].'\n');
+      print($row['bfirstname'].'\n');
      $asfid=$row['asfid'];
      $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
@@ -56,9 +56,9 @@ try{
 
      if ($row === reset($stmt)){
          $keynew = [$firstname,$lastname,$email];
-         print($keynew[0]);
-         print($keynew[1]);
-         print($keynew[2]);
+         print($keynew[0].'\n');
+         print($keynew[1].'\n');
+         print($keynew[2].'\n');
      }
      if ($keynew === $keyold){
         //$keynewに新レコードを設定
@@ -67,9 +67,25 @@ try{
           if($row === end($stmt)){
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
+           //中間テーブル登録
+           $company = '日精自動車';
+           $vectorno__c = '9999001';
+            $firstname=$keynew[0];
+            $lastname=$keynew[1];
+            $email=$keynew[2];
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
+           $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
          }else{
              //keyoldのデータ登録
              print('=======keyoldのデータ登録=====');
+           //中間テーブル登録
+           $company = '日精自動車';
+           $vectorno__c = '9999001';
+            $firstname=$keyold[0];
+            $lastname=$keyold[1];
+            $email=$keyold[2];
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
+           $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
              //keyoldにkeynewを設定
              $keyold = $keynew;
        }
