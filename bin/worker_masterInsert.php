@@ -42,8 +42,8 @@ try{
      $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
      $bschema=$row['bschema'];
-     $firstname = $row['blastname'];
-     $lastname = $row['bfirstname'];
+     $lastname = $row['blastname'];
+     $firstname = $row['bfirstname'];
      $email = $row['bemail'];
      
 
@@ -72,7 +72,14 @@ try{
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
-          $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
+          
+          $stmtUpdate->bindParam(':company', $company);
+          $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
+          $stmtUpdate->bindParam(':firstname', $firstname);
+          $stmtUpdate->bindParam(':lastname', $lastname);
+          $stmtUpdate->bindParam(':email', $email);
+          
+          $stmtUpdate->execute();
            
          }else{
              //keyoldのデータ登録
@@ -89,6 +96,13 @@ try{
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
+          
+         // $stmtUpdate->bindParam(':company', $company);
+        //  $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
+        //  $stmtUpdate->bindParam(':firstname', $firstname);
+        //  $stmtUpdate->bindParam(':lastname', $lastname);
+        //  $stmtUpdate->bindParam(':email', $email);
+          
           $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
            
            
