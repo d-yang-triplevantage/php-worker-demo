@@ -26,7 +26,7 @@ try{
   //                 and  a.schema != b.schema';
 
 
-   $sql = "select {$_SELECT} where a.lastname = b.lastname and a.firstname = b.firstname and a.email = b.email and  a.schema != b.schema"; 
+   $sql = 'select {$_SELECT} where a.lastname = b.lastname and a.firstname = b.firstname and a.email = b.email and  a.schema != b.schema '; 
 
   //SQL例
   //$sql = 'select * from "SchemeName"."TableName"';
