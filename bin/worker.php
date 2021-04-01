@@ -31,10 +31,13 @@ try{
      // $name = $row['lastname'];
      $sfid=$row['sfid'];
      $schema='salesforce001';
+     $firstname = $row['firstname'];
+     $lastname = $row['lastname'];
+     $email = $row['email'];    
       print("======salesforce001.Lead=========");
       //中間テーブル登録
-      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES(:sfid, :schema)');
-      $prepIns001->execute(array($sfid,$schema));
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
+      $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
       
       
       
@@ -56,11 +59,14 @@ try{
      // $name = $row['lastname'];
      $sfid=$row['sfid'];
      $schema='salesforce002';
+     $firstname = $row['firstname'];
+     $lastname = $row['lastname'];
+     $email = $row['email'];    
       print("======salesforce002.Lead=========");
       
       //中間テーブル登録
-      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema) VALUES(:sfid, :schema)');
-      $prepIns001->execute(array($sfid,$schema));
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
+      $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
   }
   
 
