@@ -98,7 +98,7 @@ try{
       
           $sql = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmt = $dbh->prepare($sql);
-          $stmt->execute(array($company,$vectorno__c,$firstname,$lastname,$email);
+          $stmt->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
 
       }
       
