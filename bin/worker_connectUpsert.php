@@ -16,101 +16,45 @@ try{
    //SQL作成
    
    
-  $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blastname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b
-               where a.lastname = b.lastname
-                   and a.firstname = b.firstname
-                   and a.email = b.email
-                  and  a.schema != b.schema';
+  $sql = 'select * from  sfdcmiddle.middle_out_lead';
   
   $stmt  = $dbh->query($sql);
 
-  $keynew = ['','',''];
-  $keyold = ['','',''];
   
   //SQL実行
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
-
-    //  print($row['asfid'].'\n');      
-    //  print($row['aschema'].'\n');
-    //  print($row['bsfid'].'\n');      
-    //  print($row['bschema'].'\n');
-    //  print($row['bemail'].'\n');
-    //  print($row['blastname'].'\n');
-    //  print($row['bfirstname'].'\n');
-     $asfid=$row['asfid'];
-     $aschema=$row['aschema'];
-     $bsfid=$row['bsfid'];
-     $bschema=$row['bschema'];
-     $lastname = $row['blastname'];
-     $firstname = $row['bfirstname'];
-     $email = $row['bemail'];
-     
-
-     if ($row === reset($stmt)){
-         $keynew = [$firstname,$lastname,$email];
-         print($keynew[0].'\n');
-         print($keynew[1].'\n');
-         print($keynew[2].'\n');
-     }
-     if ($keynew === $keyold){
-        //$keynewに新レコードを設定
-        $keynew = [$firstname,$lastname,$email];
-     }else{
-          if($row === end($stmt)){
-             //keyoldデータ登録
-             print('=======keyoldのデータ登録=最後====');
-           //中間テーブル登録
-           $company = '日精自動車';
-           $vectorno__c = '9999001';
-            $firstname=$keynew[0];
-            $lastname=$keynew[1];
-            $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
-           $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
-           
-           //中間テーブルに統合IDを反映
-          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
-          $stmtUpdate = $dbh->prepare($sqlUpdate);
-          
-          $stmtUpdate->bindParam(':company', $company);
-          $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
-          $stmtUpdate->bindParam(':firstname', $firstname);
-          $stmtUpdate->bindParam(':lastname', $lastname);
-          $stmtUpdate->bindParam(':email', $email);
-          
-          $stmtUpdate->execute();
-           
-         }else{
-             //keyoldのデータ登録
-             print('=======keyoldのデータ登録=====');
-           //中間テーブル登録
-           $company = '日精自動車';
-           $vectorno__c = '9999001';
-            $firstname=$keynew[0];
-            $lastname=$keynew[1];
-            $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
-           $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
-           
-           //中間テーブルに統合IDを反映
-          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
-          $stmtUpdate = $dbh->prepare($sqlUpdate);
-          
-         // $stmtUpdate->bindParam(':company', $company);
-        //  $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
-        //  $stmtUpdate->bindParam(':firstname', $firstname);
-        //  $stmtUpdate->bindParam(':lastname', $lastname);
-        //  $stmtUpdate->bindParam(':email', $email);
-          
-          $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
-           
-           
-             //keyoldにkeynewを設定
-             $keyold = $keynew;
-       }
-     }
       
+      print($row['id'].' ');
+      print($row['sfid'].' ');
+      print($row['schema'].' ');
+      print($row['firstname'].' ');
+      print($row['lastname'].' ');
+      print($row['email'].' ');
+      print($row['company'].' ');
+      print($row['vectorno__c'].' ');
+    
+    
+     $id=$row['id'];    
+     $sfid=$row['sfid'];
+     $schema=$row['schema'];
+     $firstname = $row['firstname'];
+     $lastname = $row['lastname'];
+     $email = $row['email'];
+     $companyI = $row['company'];
+     $vectorno__cI = $row['vectorno__c'];
+     $companyU = $row['company'];
+     $vectorno__cU = $row['vectorno__c'];
+
+
+           //heroku connectテーブル登録
+ 
+           $prepIns = $dbh->prepare('INSERT INTO :schema.Lead(id,sfid,firstname,lastname,email,company,vectorno__c) VALUES(:id,:sfid,:firstname,:lastname,:email,:company,:vectorno__c)  on conflict(id) do update set company=:company, vectorno__c=:vectorno__c');
+           $prepIns->execute(array($schema,$id,$sfid,$firstname,$lastname,$email,$companyI,$vectorno__cI,$companyU,$vectorno__cU));
+         //ここまで  
+         //  insert into salesforce001.Lead(id,sfid,firstname,lastname,email,company,vectorno__c) values (:id,:sfid,:firstname,:lastname,:email,:company,:vectorno__c)
+         //  on conflict(id)
+         //  do update set company=:company, vectorno__c=:vectorno__c;
       
   }
 

@@ -23,12 +23,11 @@ try{
   foreach ($dbh->query($sql) as $row) {
       //指定Columnを一覧表示
 
-      print($row['firstname'].'\t');      
-      print($row['lastname'].'\t');
-      print($row['sfid'].'\t');      
-     // print($row['schema'].'\t');
+      print($row['firstname'].' ');      
+      print($row['lastname'].' ');
+      print($row['sfid'].' ');
       print($row['email']);
-     // $name = $row['lastname'];
+     $id = $row['id'];
      $sfid=$row['sfid'];
      $schema='salesforce001';
      $firstname = $row['firstname'];
@@ -36,8 +35,8 @@ try{
      $email = $row['email'];    
       print("======salesforce001.Lead=========");
       //中間テーブル登録
-      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
-      $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid, :schema,:firstname,:lastname,:email)');
+      $prepIns001->execute(array($id,$sfid,$schema,$firstname,$lastname,$email));
       
       
       
@@ -51,12 +50,11 @@ try{
   foreach ($dbh->query($sql) as $row) {
       //指定Columnを一覧表示
 
-      print($row['firstname'].'\t');      
-      print($row['lastname'].'\t');
-      print($row['sfid'].'\t');      
-     // print($row['schema'].'\t');
+      print($row['firstname'].' ');      
+      print($row['lastname'].' ');
+      print($row['sfid'].' ');      
       print($row['email']);
-     // $name = $row['lastname'];
+     $id=$row['id'];
      $sfid=$row['sfid'];
      $schema='salesforce002';
      $firstname = $row['firstname'];
@@ -65,8 +63,8 @@ try{
       print("======salesforce002.Lead=========");
       
       //中間テーブル登録
-      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
-      $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid,:schema,:firstname,:lastname,:email)');
+      $prepIns001->execute(array($id,$sfid,$schema,$firstname,$lastname,$email));
   }
   
 
