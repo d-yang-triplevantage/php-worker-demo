@@ -38,7 +38,7 @@ try{
     
      $id=$row['id'];    
      $sfid=$row['sfid'];
-     $schema=$row['aschema'];
+     $schema=$row['schema'];
      $firstname = $row['firstname'];
      $lastname = $row['lastname'];
      $email = $row['email'];
