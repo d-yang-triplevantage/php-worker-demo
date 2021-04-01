@@ -50,7 +50,7 @@ try{
 
            //heroku connectテーブル登録
  
-           $prepIns = $dbh->prepare('INSERT INTO $schemaid (id,sfid,firstname,lastname,email,company,vectorno__c) VALUES(:id,:sfid,:firstname,:lastname,:email,:company,:vectorno__c)  on conflict(id) do update set company=:company, vectorno__c=:vectorno__c');
+           $prepIns = $dbh->prepare('INSERT INTO '.$schemaid.' (id,sfid,firstname,lastname,email,company,vectorno__c) VALUES(:id,:sfid,:firstname,:lastname,:email,:company,:vectorno__c)  on conflict(id) do update set company=:company, vectorno__c=:vectorno__c');
            $prepIns->execute(array($id,$sfid,$firstname,$lastname,$email,$companyI,$vectorno__cI,$companyU,$vectorno__cU));
          //ここまで  
          //  insert into salesforce001.Lead(id,sfid,firstname,lastname,email,company,vectorno__c) values (:id,:sfid,:firstname,:lastname,:email,:company,:vectorno__c)
