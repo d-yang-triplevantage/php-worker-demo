@@ -21,13 +21,8 @@ try{
                    and a.firstname = b.firstname
                    and a.email = b.email
                   and  a.schema != b.schema';
-
-
-  //SQL例
-  //$sql = 'select * from "SchemeName"."TableName"';
   
   $stmt  = $dbh->query($sql);
-  $count = 0;
 
   $keynew = ['','',''];
   $keyold = ['','',''];
@@ -36,8 +31,6 @@ try{
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
-     
-      
     //  print($row['asfid'].'\n');      
     //  print($row['aschema'].'\n');
     //  print($row['bsfid'].'\n');      
@@ -75,6 +68,10 @@ try{
             $email=$keynew[2];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
+           
+           //中間テーブルに統合IDを反映
+           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c);
+           
          }else{
              //keyoldのデータ登録
              print('=======keyoldのデータ登録=====');
@@ -86,15 +83,24 @@ try{
             $email=$keynew[2];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
+           
+           //中間テーブルに統合IDを反映
+           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c);
+           
+           
              //keyoldにkeynewを設定
              $keyold = $keynew;
        }
      }
-
-      //中間テーブル登録
-      //$prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
-      // $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
       
+      //中間テーブルに統合IDを反映
+      function updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c){
+      
+          $sql = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $stmt = $dbh->prepare($sql);
+          $stmt->execute(array($company,$vectorno__c,$firstname,$lastname,$email);
+
+      }
       
   }
 
