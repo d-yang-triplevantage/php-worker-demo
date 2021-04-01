@@ -15,18 +15,17 @@ try{
   //マスタ取り込み処理
    //SQL作成
    
-   $_SELECT = "a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail ";
-   $_SELECT .= "from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b "
+ //  $_SELECT = "a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail ";
+ //  $_SELECT .= "from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b "
    
-  //$sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail
-  //             from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b 
-  //             where a.lastname = b.lastname
-  //                 and a.firstname = b.firstname
-  //                 and a.email = b.email
-  //                 and  a.schema != b.schema';
+  $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b
+               where a.lastname = b.lastname
+                   and a.firstname = b.firstname
+                   and a.email = b.email
+                  and  a.schema != b.schema';
 
 
-   $sql = 'select {$_SELECT} where a.lastname = b.lastname and a.firstname = b.firstname and a.email = b.email and  a.schema != b.schema '; 
+  // $sql = 'select {$_SELECT} where a.lastname = b.lastname and a.firstname = b.firstname and a.email = b.email and  a.schema != b.schema '; 
 
   //SQL例
   //$sql = 'select * from "SchemeName"."TableName"';
