@@ -15,8 +15,6 @@ try{
   //マスタ取り込み処理
    //SQL作成
    
- //  $_SELECT = "a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail ";
- //  $_SELECT .= "from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b "
    
   $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b
                where a.lastname = b.lastname
@@ -25,15 +23,23 @@ try{
                   and  a.schema != b.schema';
 
 
-  // $sql = 'select {$_SELECT} where a.lastname = b.lastname and a.firstname = b.firstname and a.email = b.email and  a.schema != b.schema '; 
-
   //SQL例
   //$sql = 'select * from "SchemeName"."TableName"';
 
+  $count = 0;
+  
+  $stmt  = $dbh->query($sql);
+  $count = 0;
+
+  $keynew = ['','',''];
+  $keyold = ['','',''];
+  
   //SQL実行
-  foreach ($dbh->query($sql) as $row) {
+  foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
+     
+      
       print($row['asfid']);      
       print($row['aschema']);
       print($row['bsfid']);      
@@ -42,17 +48,38 @@ try{
       print($row['blastname']);
       print($row['bfirstname']);
      $asfid=$row['asfid'];
-     $aschema=$row['aaschema'];
+     $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
-     $bschema=$row['baschema'];
+     $bschema=$row['bschema'];
      $firstname = $row['blistname'];
      $lastname = $row['bfirstname'];
      $email = $row['bemail'];
+     
+
+     if ($row === reset($stmt)){
+         $keynew = [$firstname,$lastname,$email];
+         print($keynew[0]);
+         print($keynew[1]);
+         print($keynew[2]);
+     }
+     if ($keynew === $keyold){
+        //$keynewに新レコードを設定
+        $keynew = [$firstname,$lastname,$email];
+     }else{
+          if($row === end($stmt)){
+             //keyoldデータ登録
+             print('=======keyoldのデータ登録=最後====');
+         }else{
+             //keyoldのデータ登録
+             print('=======keyoldのデータ登録=====');
+             //keyoldにkeynewを設定
+             $keyold = $keynew;
+       }
+     }
 
       //中間テーブル登録
-      //$prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
-     // $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
-      
+      //$prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(sfid, schema,firstname,lastname,email) VALUES(:sfid, :schema,:firstname,:lastname,:email)');
+      // $prepIns001->execute(array($sfid,$schema,$firstname,$lastname,$email));
       
       
   }
