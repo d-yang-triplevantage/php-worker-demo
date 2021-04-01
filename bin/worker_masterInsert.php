@@ -94,7 +94,7 @@ try{
      }
       
       //中間テーブルに統合IDを反映
-      function updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c){
+      function updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c,$dbh){
       
           $sql = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmt = $dbh->prepare($sql);
