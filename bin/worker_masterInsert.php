@@ -15,7 +15,7 @@ try{
   //マスタ取り込み処理
    //SQL作成
   //$sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blistname,b.firstname as bfirstname,b.email as bemail
-               from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b 
+               from "sfdcmiddle"."middle_lead" a ,"sfdcmiddle"."middle_lead" b 
                where a.lastname = b.lastname
                    and a.firstname = b.firstname
                    and a.email = b.email
