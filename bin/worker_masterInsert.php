@@ -70,7 +70,9 @@ try{
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
            
            //中間テーブルに統合IDを反映
-           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c,$dbh);
+          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $stmtUpdate = $dbh->prepare($sqlUpdate);
+          $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
            
          }else{
              //keyoldのデータ登録
@@ -85,7 +87,9 @@ try{
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
            
            //中間テーブルに統合IDを反映
-           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c,$dbh);
+          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $stmtUpdate = $dbh->prepare($sqlUpdate);
+          $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
            
            
              //keyoldにkeynewを設定
@@ -93,14 +97,6 @@ try{
        }
      }
       
-      //中間テーブルに統合IDを反映
-      function updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c,$dbh){
-      
-          $sql = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
-          $stmt = $dbh->prepare($sql);
-          $stmt->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
-
-      }
       
   }
 
