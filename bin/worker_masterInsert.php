@@ -49,7 +49,7 @@ try{
      $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
      $bschema=$row['bschema'];
-     $firstname = $row['blistname'];
+     $firstname = $row['blastname'];
      $lastname = $row['bfirstname'];
      $email = $row['bemail'];
      
