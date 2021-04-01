@@ -38,13 +38,13 @@ try{
 
      
       
-      print($row['asfid'].'\n');      
-      print($row['aschema'].'\n');
-      print($row['bsfid'].'\n');      
-      print($row['bschema'].'\n');
-      print($row['bemail'].'\n');
-      print($row['blastname'].'\n');
-      print($row['bfirstname'].'\n');
+    //  print($row['asfid'].'\n');      
+    //  print($row['aschema'].'\n');
+    //  print($row['bsfid'].'\n');      
+    //  print($row['bschema'].'\n');
+    //  print($row['bemail'].'\n');
+    //  print($row['blastname'].'\n');
+    //  print($row['bfirstname'].'\n');
      $asfid=$row['asfid'];
      $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
@@ -81,9 +81,9 @@ try{
            //中間テーブル登録
            $company = '日精自動車';
            $vectorno__c = '9999001';
-            $firstname=$keyold[0];
-            $lastname=$keyold[1];
-            $email=$keyold[2];
+            $firstname=$keynew[0];
+            $lastname=$keynew[1];
+            $email=$keynew[2];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
              //keyoldにkeynewを設定
