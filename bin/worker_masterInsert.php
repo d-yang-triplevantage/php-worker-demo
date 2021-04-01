@@ -70,7 +70,7 @@ try{
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
            
            //中間テーブルに統合IDを反映
-           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c);
+           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c,$dbh);
            
          }else{
              //keyoldのデータ登録
@@ -85,7 +85,7 @@ try{
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
            
            //中間テーブルに統合IDを反映
-           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c);
+           updatemiddletable($firstname,$lastname,$email,$company,$vectorno__c,$dbh);
            
            
              //keyoldにkeynewを設定
