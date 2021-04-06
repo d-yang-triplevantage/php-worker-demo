@@ -8,17 +8,18 @@ $DBNAME = ltrim($dbopts["path"],'/');
 $DBUSER = $dbopts["user"];
 $DBPASS = $dbopts["pass"];
 
+
 try{
-  //DB接続
-  $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+   //DB接続
+   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
   
-  //A社データ処理（中間テーブル取り込み）
+   //A社データ処理（中間テーブル取り込み）
    //SQL作成
     $sql = 'select * from salesforce001.account';
 
 
-  //SQL実行
-  foreach ($dbh->query($sql) as $row) {
+   //SQL実行
+   foreach ($dbh->query($sql) as $row) {
       //指定Columnを一覧表示
       
       print($row['id'].' ');
@@ -29,23 +30,23 @@ try{
      $id = $row['id'];
      $sfid=$row['sfid'];
      $schema='salesforce001';
-     $firstname = $row['website'];
-     $lastname = $row['name'];
+     $website = $row['website'];
+     $name = $row['name'];
    
       print("======salesforce001.account=========");
       //中間テーブル登録
-   //   $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid, :schema,:firstname,:lastname,:email)');
-   //   $prepIns001->execute(array($id,$sfid,$schema,$firstname,$lastname,$email));
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_account(id,sfid, schema,website,name) VALUES(:id,:sfid,:schema,:website,:name)');
+      $prepIns001->execute(array($id,$sfid,$schema,$website,$name));
       
       
       
   }
 
-  //B社データ処理（中間テーブル取り込み）
-  //SQL作成
-  $sql = 'select * from salesforce002.account';
-    //SQL実行
-  foreach ($dbh->query($sql) as $row) {
+   //B社データ処理（中間テーブル取り込み）
+   //SQL作成
+   $sql = 'select * from salesforce002.account';
+   //SQL実行
+   foreach ($dbh->query($sql) as $row) {
       //指定Columnを一覧表示
 
       print($row['id'].' ');
@@ -55,15 +56,15 @@ try{
       
      $id = $row['id'];
      $sfid=$row['sfid'];
-     $schema='salesforce001';
-     $firstname = $row['website'];
-     $lastname = $row['name'];
+     $schema='salesforce002';
+     $website = $row['website'];
+     $name = $row['name'];
      
       print("======salesforce002.account=========");
       
       //中間テーブル登録
-     // $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid,:schema,:firstname,:lastname,:email)');
-    //  $prepIns001->execute(array($id,$sfid,$schema,$firstname,$lastname,$email));
+      $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_account(id,sfid, schema,website,name) VALUES(:id,:sfid,:schema,:website,:name)');
+      $prepIns001->execute(array($id,$sfid,$schema,$website,$name));
   }
   
 
