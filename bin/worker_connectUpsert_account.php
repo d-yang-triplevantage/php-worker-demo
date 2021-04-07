@@ -44,7 +44,7 @@ try{
      //$schemaid = $schema.'.account';
      
      //テスト用
-     $schema='salesforce001';
+     //$schema='salesforce001';
      $schemaid = $schema.'.account';
 
            //heroku connectテーブル登録
