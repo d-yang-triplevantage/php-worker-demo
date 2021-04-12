@@ -58,15 +58,15 @@ try{
         print('======salesforce.using__c========='.$schemaid);
         //中間テーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid, :schema,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__account__c,:vctr__contact__c)');
-        $dbh->bindValue(':id',$id,PDO::PARAM_STR);
-        $dbh->bindValue(':sfid',$sfid,PDO::PARAM_STR);
-        $dbh->bindValue(':schema',$schema,PDO::PARAM_STR);
-        $dbh->bindValue(':isdeleted',$isdeleted,PDO::PARAM_BOOL);
-        $dbh->bindValue(':name',$name,PDO::PARAM_STR);
-        $dbh->bindValue(':vctr__groupcompany__c',$vctr__groupcompany__c,PDO::PARAM_STR);
-        $dbh->bindValue(':vctr__lead__c',$vctr__lead__c,PDO::PARAM_BOOL);
-        $dbh->bindValue(':vctr__account__c',$vctr__account__c,PDO::PARAM_STR);
-        $dbh->bindValue(':vctr__contact__c',$vctr__contact__c,PDO::PARAM_STR);
+        $prepIns001->bindValue(':id',$id,PDO::PARAM_STR);
+        $prepIns001->bindValue(':sfid',$sfid,PDO::PARAM_STR);
+        $prepIns001->bindValue(':schema',$schema,PDO::PARAM_STR);
+        $prepIns001->bindValue(':isdeleted',$isdeleted,PDO::PARAM_BOOL);
+        $prepIns001->bindValue(':name',$name,PDO::PARAM_STR);
+        $prepIns001->bindValue(':vctr__groupcompany__c',$vctr__groupcompany__c,PDO::PARAM_STR);
+        $prepIns001->bindValue(':vctr__lead__c',$vctr__lead__c,PDO::PARAM_BOOL);
+        $prepIns001->bindValue(':vctr__account__c',$vctr__account__c,PDO::PARAM_STR);
+        $prepIns001->bindValue(':vctr__contact__c',$vctr__contact__c,PDO::PARAM_STR);
         $prepIns001->execute();
       //  $prepIns001->execute(array($id,$sfid,$schema,$isdeleted,$name,$vctr__groupcompany__c,$vctr__lead__c,$vctr__account__c,$vctr__contact__c));
         
