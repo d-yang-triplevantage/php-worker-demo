@@ -56,11 +56,11 @@ try{
         $prepIns001->bindValue(':id',$id,PDO::PARAM_INT);
         $prepIns001->bindValue(':sfid',$sfid,PDO::PARAM_STR);
         $prepIns001->bindValue(':schema',$schema,PDO::PARAM_STR);
-        $prepIns001->bindValue(':accountid',$accountid,PDO::PARAM_BOOL);
+        $prepIns001->bindValue(':accountid',$accountid,PDO::PARAM_STR);
         $prepIns001->bindValue(':name',$name,PDO::PARAM_STR);
         $prepIns001->bindValue(':contactid',$contactid,PDO::PARAM_STR);       
         $prepIns001->bindValue(':vctr__ownercompany__c',$vctr__ownercompany__c,PDO::PARAM_STR);
-        $prepIns001->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_STR);
+        $prepIns001->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
         $prepIns001->execute();
         
     }
