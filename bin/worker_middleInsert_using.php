@@ -44,6 +44,9 @@ try{
         $sfid=$row['sfid'];
         $schema=$value;
         $isdeleted = $row['isdeleted'];
+        if($isdeleted == ""){
+           $isdeleted = false;
+        }
         $name = $row['name'];
         $vctr__groupcompany__c = $row['vctr__groupcompany__c'];
         $vctr__lead__c = $row['vctr__lead__c'];
