@@ -48,7 +48,7 @@ try{
         $email = $row['email'];
         
         
-        print('======salesforce.lead========='.$schemaid);
+        print('======salesforce.using__c========='.$schemaid);
         //中間テーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,IsDeleted,Name,vctr__GroupCompany__c,vctr__Lead__c,vctr__Account__c,vctr__Contact__c) VALUES(:id,:sfid, :schema,:IsDeleted,:Name,:vctr__GroupCompany__c,vctr__Lead__c,vctr__Account__c,vctr__Contact__c)');
         $prepIns001->execute(array($id,$sfid,$schema,$IsDeleted,$Name,$vctr__GroupCompany__c,$vctr__Lead__c,$vctr__Account__c,$vctr__Contact__c));
