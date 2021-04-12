@@ -50,7 +50,6 @@ try{
         $vctr__contact__c = $row['vctr__contact__c'];
         
         
-        print('======salesforce.using__c========='.$schemaid);
         //マスタテーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_using__c(id,sfid,schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid,:bschema,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__optout__c,:vctr__account__c,:vctr__contact__c)');
         $prepIns001->bindValue(':id',$id,PDO::PARAM_INT);
