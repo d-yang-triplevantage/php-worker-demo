@@ -43,8 +43,8 @@ try{
         $id = $row['id'];
         $sfid=$row['sfid'];
         $schema=$value;
-        $IsDeleted = $row['isdeleted'];
-        $Name = $row['name'];
+        $isdeleted = $row['isdeleted'];
+        $name = $row['name'];
         $vctr__groupcompany__c = $row['vctr__groupcompany__c'];
         $vctr__lead__c = $row['vctr__lead__c'];
         $vctr__optout__c = $row['vctr__optout__c'];
