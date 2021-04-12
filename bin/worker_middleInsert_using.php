@@ -30,22 +30,26 @@ try{
       foreach ($dbh->query($sql) as $row) {
         //指定Columnを一覧表示
 
-        print($row['firstname'].' ');      
-        print($row['lastname'].' ');
-        print($row['sfid'].' ');
-        print($row['email']);
+        print($row['id'].' ');      
+        print($row['sfid'].' ');     
+        print($row['IsDeleted'].' ');
+        print($row['Name'].' ');
+        print($row['vctr__GroupCompany__c']);
+        print($row['vctr__Lead__c']);
+        print($row['vctr__Optout__c']);
+        print($row['vctr__Account__c']);
+        print($row['vctr__Contact__c']);
+        
         $id = $row['id'];
         $sfid=$row['sfid'];
         $schema=$value;
         $IsDeleted = $row['IsDeleted'];
-        $lastname = $row['lastname'];
-        $email = $row['email'];
-        $firstname = $row['firstname'];
-        $lastname = $row['lastname'];
-        $email = $row['email'];
-        $firstname = $row['firstname'];
-        $lastname = $row['lastname'];
-        $email = $row['email'];
+        $Name = $row['Name'];
+        $vctr__GroupCompany__c = $row['vctr__GroupCompany__c'];
+        $vctr__Lead__c = $row['vctr__Lead__c'];
+        $vctr__Optout__c = $row['vctr__Optout__c'];
+        $vctr__Account__c = $row['vctr__Account__c'];
+        $vctr__Contact__c = $row['vctr__Contact__c'];
         
         
         print('======salesforce.using__c========='.$schemaid);
