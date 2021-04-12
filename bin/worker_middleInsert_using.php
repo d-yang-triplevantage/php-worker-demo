@@ -2,7 +2,7 @@
 
 //定数ファイルを読み込み
 //require('config.php');
-$schema = 'salesforce001';
+$schema =['salesforce001'];
 
 //DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));
