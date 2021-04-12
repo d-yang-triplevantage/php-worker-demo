@@ -36,7 +36,7 @@ try{
         print('accountid:'.$row['accountid'].' ');
         print($row['name'].' ');
         print($row['contactid']);
-        print($row['vctr__groupcompany__c']);
+        print($row['vctr__ownercompany__c']);
         print($row['vctr__shareng__c']);
 
         
@@ -46,20 +46,20 @@ try{
         $accountid = $row['accountid'];
         $name = $row['name'];
         $contactid = $row['contactid'];
-        $vctr__groupcompany__c = $row['vctr__groupcompany__c'];
+        $vctr__ownercompany__c = $row['vctr__ownercompany__c'];
         $vctr__shareng__c = $row['vctr__shareng__c'];
         
         
         print('======salesforce.opportunity=========');
         //中間テーブル登録
-        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_opportunity(id,sfid, schema,accountid,name,contactid,vctr__groupcompany__c,vctr__shareng__c) VALUES(:id,:sfid, :schema,:accountid,:name,:contactid,:vctr__groupcompany__c,:vctr__shareng__c)');
+        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_opportunity(id,sfid, schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c) VALUES(:id,:sfid, :schema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c)');
         $prepIns001->bindValue(':id',$id,PDO::PARAM_INT);
         $prepIns001->bindValue(':sfid',$sfid,PDO::PARAM_STR);
         $prepIns001->bindValue(':schema',$schema,PDO::PARAM_STR);
         $prepIns001->bindValue(':accountid',$accountid,PDO::PARAM_BOOL);
         $prepIns001->bindValue(':name',$name,PDO::PARAM_STR);
         $prepIns001->bindValue(':contactid',$contactid,PDO::PARAM_STR);       
-        $prepIns001->bindValue(':vctr__groupcompany__c',$vctr__groupcompany__c,PDO::PARAM_STR);
+        $prepIns001->bindValue(':vctr__ownercompany__c',$vctr__ownercompany__c,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_STR);
         $prepIns001->execute();
         
