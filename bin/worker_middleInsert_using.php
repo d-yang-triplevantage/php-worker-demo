@@ -32,7 +32,7 @@ try{
 
         print($row['id'].' ');      
         print($row['sfid'].' ');     
-        print($row['isdeleted'].' ');
+        print('isdeleted:'.$row['isdeleted'].' ');
         print($row['name'].' ');
         print($row['vctr__groupcompany__c']);
         print($row['vctr__lead__c']);
@@ -44,7 +44,7 @@ try{
         $sfid=$row['sfid'];
         $schema=$value;
         $isdeleted = $row['isdeleted'];
-        if($isdeleted == ""){
+        if($isdeleted === " "){
            $isdeleted = false;
         }
         $name = $row['name'];
