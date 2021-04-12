@@ -54,7 +54,7 @@ try{
         
         print('======salesforce.using__c========='.$schemaid);
         //中間テーブル登録
-        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid, :schema,:isdeleted,:name,:vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c)');
+        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid, :schema,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__account__c,:vctr__contact__c)');
         $prepIns001->execute(array($id,$sfid,$schema,$isdeleted,$name,$vctr__groupcompany__c,$vctr__lead__c,$vctr__account__c,$vctr__contact__c));
         
     }
