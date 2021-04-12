@@ -15,7 +15,7 @@ try{
    //マスタ取り込み処理
    //SQL作成
    
-  $sql = 'select id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c from sfdcmiddle.middle_using__c ';
+  $sql = 'select id,sfid,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c from sfdcmiddle.middle_using__c ';
   
   $stmt  = $dbh->query($sql);
 
@@ -48,14 +48,14 @@ try{
         
         print('======salesforce.using__c========='.$schemaid);
         //マスタテーブル登録
-        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_using__c(id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid, :schema,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__account__c,:vctr__contact__c)');
+        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_using__c(id,sfid,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__optout__c,:vctr__account__c,:vctr__contact__c)');
         $prepIns001->bindValue(':id',$id,PDO::PARAM_INT);
         $prepIns001->bindValue(':sfid',$sfid,PDO::PARAM_STR);
-        $prepIns001->bindValue(':schema',$schema,PDO::PARAM_STR);
         $prepIns001->bindValue(':isdeleted',$isdeleted,PDO::PARAM_BOOL);
         $prepIns001->bindValue(':name',$name,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__groupcompany__c',$vctr__groupcompany__c,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__lead__c',$vctr__lead__c,PDO::PARAM_STR);
+        $prepIns001->bindValue(':vctr__optout__c',$vctr__optout__c,PDO::PARAM_BOOL);
         $prepIns001->bindValue(':vctr__account__c',$vctr__account__c,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__contact__c',$vctr__contact__c,PDO::PARAM_STR);
         $prepIns001->execute();
