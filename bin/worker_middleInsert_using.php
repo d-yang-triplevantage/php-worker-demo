@@ -32,30 +32,30 @@ try{
 
         print($row['id'].' ');      
         print($row['sfid'].' ');     
-        print($row['IsDeleted'].' ');
-        print($row['Name'].' ');
-        print($row['vctr__GroupCompany__c']);
-        print($row['vctr__Lead__c']);
-        print($row['vctr__Optout__c']);
-        print($row['vctr__Account__c']);
-        print($row['vctr__Contact__c']);
+        print($row['isdeleted'].' ');
+        print($row['name'].' ');
+        print($row['vctr__groupcompany__c']);
+        print($row['vctr__lead__c']);
+        print($row['vctr__optout__c']);
+        print($row['vctr__account__c']);
+        print($row['vctr__contact__c']);
         
         $id = $row['id'];
         $sfid=$row['sfid'];
         $schema=$value;
-        $IsDeleted = $row['IsDeleted'];
-        $Name = $row['Name'];
-        $vctr__GroupCompany__c = $row['vctr__GroupCompany__c'];
-        $vctr__Lead__c = $row['vctr__Lead__c'];
-        $vctr__Optout__c = $row['vctr__Optout__c'];
-        $vctr__Account__c = $row['vctr__Account__c'];
-        $vctr__Contact__c = $row['vctr__Contact__c'];
+        $IsDeleted = $row['isdeleted'];
+        $Name = $row['name'];
+        $vctr__groupcompany__c = $row['vctr__groupcompany__c'];
+        $vctr__lead__c = $row['vctr__lead__c'];
+        $vctr__optout__c = $row['vctr__optout__c'];
+        $vctr__account__c = $row['vctr__account__c'];
+        $vctr__contact__c = $row['vctr__contact__c'];
         
         
         print('======salesforce.using__c========='.$schemaid);
         //中間テーブル登録
-        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,IsDeleted,Name,vctr__GroupCompany__c,vctr__Lead__c,vctr__Account__c,vctr__Contact__c) VALUES(:id,:sfid, :schema,:IsDeleted,:Name,:vctr__GroupCompany__c,vctr__Lead__c,vctr__Account__c,vctr__Contact__c)');
-        $prepIns001->execute(array($id,$sfid,$schema,$IsDeleted,$Name,$vctr__GroupCompany__c,$vctr__Lead__c,$vctr__Account__c,$vctr__Contact__c));
+        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid, :schema,:isdeleted,:name,:vctr__groupcompany__c,vctr__lead__c,vctr__account__c,vctr__contact__c)');
+        $prepIns001->execute(array($id,$sfid,$schema,$isdeleted,$name,$vctr__groupcompany__c,$vctr__lead__c,$vctr__account__c,$vctr__contact__c));
         
     }
   }
