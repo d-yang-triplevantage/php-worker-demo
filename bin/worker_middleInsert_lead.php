@@ -11,7 +11,11 @@ $DBPORT = $dbopts["port"];
 $DBNAME = ltrim($dbopts["path"],'/');
 $DBUSER = $dbopts["user"];
 $DBPASS = $dbopts["pass"];
-
+        print('DBHOST: '.$DBHOST.' ');
+        print('DBPORT: '.$DBPORT.' ');
+        print('DBNAME: '.$DBNAME.' ');
+        print('DBUSER: '.$DBUSER.' ');
+        print('DBPASS: '.$DBPASS.' ');
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
