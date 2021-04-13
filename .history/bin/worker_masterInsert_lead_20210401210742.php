@@ -11,29 +11,29 @@ $DBPASS = $dbopts["pass"];
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-
+  
   //マスタ取り込み処理
    //SQL作成
-
-
+   
+   
   $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blastname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_lead a ,sfdcmiddle.middle_lead b
                where a.lastname = b.lastname
                    and a.firstname = b.firstname
                    and a.email = b.email
                   and  a.schema != b.schema';
-
+  
   $stmt  = $dbh->query($sql);
 
   $keynew = ['','',''];
   $keyold = ['','',''];
-
+  
   //SQL実行
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
-    //  print($row['asfid'].'\n');
+    //  print($row['asfid'].'\n');      
     //  print($row['aschema'].'\n');
-    //  print($row['bsfid'].'\n');
+    //  print($row['bsfid'].'\n');      
     //  print($row['bschema'].'\n');
     //  print($row['bemail'].'\n');
     //  print($row['blastname'].'\n');
@@ -45,7 +45,7 @@ try{
      $lastname = $row['blastname'];
      $firstname = $row['bfirstname'];
      $email = $row['bemail'];
-
+     
 
      if ($row === reset($stmt)){
          $keynew = [$firstname,$lastname,$email];
@@ -66,21 +66,21 @@ try{
             $firstname=$keynew[0];
             $lastname=$keynew[1];
             $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
-
+           
            //中間テーブルに統合IDを反映
-          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
-
+          
           $stmtUpdate->bindParam(':company', $company);
           $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
           $stmtUpdate->bindParam(':firstname', $firstname);
           $stmtUpdate->bindParam(':lastname', $lastname);
           $stmtUpdate->bindParam(':email', $email);
-
+          
           $stmtUpdate->execute();
-
+           
          }else{
              //keyoldのデータ登録
              print('=======keyoldのデータ登録=====');
@@ -90,28 +90,28 @@ try{
             $firstname=$keynew[0];
             $lastname=$keynew[1];
             $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
-
+           
            //中間テーブルに統合IDを反映
-          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
-
+          
          // $stmtUpdate->bindParam(':company', $company);
         //  $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
         //  $stmtUpdate->bindParam(':firstname', $firstname);
         //  $stmtUpdate->bindParam(':lastname', $lastname);
         //  $stmtUpdate->bindParam(':email', $email);
-
+          
           $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
-
-
+           
+           
              //keyoldにkeynewを設定
              $keyold = $keynew;
        }
      }
-
-
+      
+      
   }
 
 
