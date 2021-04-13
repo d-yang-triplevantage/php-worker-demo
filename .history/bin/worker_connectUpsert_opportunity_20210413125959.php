@@ -11,23 +11,23 @@ $DBPASS = $dbopts["pass"];
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-
+  
   //マスタ取り込み処理
    //SQL作成
-
-
+   
+   
   $sql = 'select * from  sfdcmiddle.middle_out_opportunity';
-
+  
   $stmt  = $dbh->query($sql);
 
-
+  
   //SQL実行
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
-
-        print($row['id'].' ');
-        print($row['sfid'].' ');
-        print($row['schema'].' ');
+      
+        print($row['id'].' ');      
+        print($row['sfid'].' ');  
+        print($row['schema'].' '); 
         print($row['accountid'].' ');
         print($row['name'].' ');
         print($row['contactid']);
