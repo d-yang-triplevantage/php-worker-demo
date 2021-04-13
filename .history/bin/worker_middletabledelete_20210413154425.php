@@ -28,6 +28,7 @@ try{
         $stmt  = $dbh->query($sql);
     }
 
+
 }catch(PDOException $e){
     print("接続失敗");
     print($e);
