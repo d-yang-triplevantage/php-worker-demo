@@ -1,0 +1,10 @@
+delete from sfdcmiddle.middle_out_lead;
+delete from sfdcmiddle.middle_out_account;
+delete from sfdcmiddle.middle_out_contact;
+delete from sfdcmiddle.middle_out_opportunity;
+delete from sfdcmiddle.middle_out_using__c;
+delete from sfdcmiddle.middle_lead;
+delete from sfdcmiddle.middle_account;
+delete from sfdcmiddle.middle_contact;
+delete from sfdcmiddle.middle_opportunity;
+delete from sfdcmiddle.middle_using__c;
