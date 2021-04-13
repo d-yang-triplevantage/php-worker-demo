@@ -39,7 +39,7 @@ try{
         $contactid = $row['contactid'];
         $vctr__ownercompany__c = $row['vctr__ownercompany__c'];
         $vctr__shareng__c = $row['vctr__shareng__c'];
-        $vctr__vectorno__c = 'O990001';
+        $vctr__vectorno__c = 'OPP990001';
 
         //マスタテーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_opportunity(id,sfid,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
@@ -53,6 +53,10 @@ try{
         $prepIns001->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
         $prepIns001->execute();
 
+        //中間テーブルに統合IDを反映
+        $sqlUpdate = 'update sfdcmiddle.middle_opportunity set vctr__vectorno__c=:vctr__vectorno__c WHERE sfid = :sfid and id=:id';
+        $stmtUpdate = $dbh->prepare($sqlUpdate);
+        $stmtUpdate->execute(array($vctr__vectorno__c,$sfid,$id));
 
   }
 
