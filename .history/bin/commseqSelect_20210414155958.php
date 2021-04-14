@@ -11,8 +11,8 @@ $DBPASS = $dbopts["pass"];
 try{
     //DB接続
     $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-    $sql = "";
-    $sql .= "SELECT nextval('sfdcmiddle.seq_lead')";
+
+    $sql = 'SELECT nextval('sfdcmiddle.seq_lead')';
 
     $stmt  = $dbh->query($sql);
     print(' seq_lead==='.$stmt.' ');
