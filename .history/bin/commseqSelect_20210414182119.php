@@ -20,8 +20,7 @@ try{
    //   print(' seq_lead nextval==='.$nextval.' ');
    // }
     $nextvalValue = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //$nextvalValue[0]['nextval'];
-    print(' seq_lead nextval==='.$nextvalValue[0]['nextval'].' ');
+    print(' seq_lead nextval==='.$nextvalValue.' ');
 
 }catch(PDOException $e){
   print("接続失敗");
