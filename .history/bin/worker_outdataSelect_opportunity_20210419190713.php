@@ -34,7 +34,7 @@ try{
         print($row['name'].' ');
         print($row['contactid'].' ');
         print($row['vctr__ownercompany__c'].' ');
-        print('vctr__shareng__c='.$row['vctr__shareng__c'].' ');
+        print('vctr__shareng__c='.$row['vctr__shareng__c']);
         print($row['vctr__vectorno__c']);
 
         $id = $row['id'];
@@ -61,7 +61,7 @@ try{
         $prepIns001->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
         $prepIns001->execute();
 
-        if($vctr__shareng__c === ''){
+        if($vctr__shareng__c === false){
            //他社共有データ登録
              //共有先の取引先ID取得
              $accountgetsql = 'select sfid as accsfid,schema as accschema from sfdcmiddle.middle_account where schema != :bschema and vctr__vectorno__c = :vctr__vectorno__c';
