@@ -72,7 +72,7 @@ try{
              //結果セットから配列を取得
              $accountItem = $accountidstmt -> fetchAll(PDO::FETCH_ASSOC);
 
-             print('accountItem= '.$accountItem.' ');
+             print_r($accountItem);
              foreach ($accountItem as $row) {
 
                   print($row['sfid'].' ');
@@ -84,8 +84,8 @@ try{
                   $tasyaaccountid = $row['accountid'];
 
                   //他社共有データをマスタテーブル登録
-                  $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:bschema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
-                  $prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
+                  $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:sfid,:bschema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
+                  //$prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
                   $prepIns002->bindValue(':sfid',$tasyasfid,PDO::PARAM_STR);
                   $prepIns002->bindValue(':bschema',$tasyaschema,PDO::PARAM_STR);
                   $prepIns002->bindValue(':accountid',$tasyaaccountid,PDO::PARAM_STR);

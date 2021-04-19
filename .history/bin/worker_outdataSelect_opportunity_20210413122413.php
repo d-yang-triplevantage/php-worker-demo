@@ -32,9 +32,9 @@ try{
         print($row['bschema'].' ');
         print($row['accountid'].' ');
         print($row['name'].' ');
-        print($row['contactid'].' ');
-        print($row['vctr__ownercompany__c'].' ');
-        print('vctr__shareng__c='.$row['vctr__shareng__c']);
+        print($row['contactid']);
+        print($row['vctr__ownercompany__c']);
+        print($row['vctr__shareng__c']);
         print($row['vctr__vectorno__c']);
 
         $id = $row['id'];
@@ -60,46 +60,6 @@ try{
         $prepIns001->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
         $prepIns001->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
         $prepIns001->execute();
-
-        if($vctr__shareng__c === false){
-           //他社共有データ登録
-             //共有先の取引先ID取得
-             $accountgetsql = 'select sfid,schema,accountid from sfdcmiddle.middle_account where schema != :bschema and vctr__vectorno__c = :vctr__vectorno__c';
-             $accountidstmt = $dbh->prepare($accountgetsql);
-             $accountidstmt->bindValue(':bschema',$bschema,PDO::PARAM_STR);
-             $accountidstmt->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
-             $accountidstmt->execute();
-             //結果セットから配列を取得
-             $accountItem = $accountidstmt -> fetchAll(PDO::FETCH_ASSOC);
-
-             print('accountItem= '.$accountItem.' ');
-             foreach ($accountItem as $row) {
-
-                  print($row['sfid'].' ');
-                  print($row['schema'].' ');
-                  print($row['accountid'].' ');
-
-                  $tasyasfid=$row['sfid'];
-                  $tasyaschema=$row['bschema'];
-                  $tasyaaccountid = $row['accountid'];
-
-                  //他社共有データをマスタテーブル登録
-                  $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:bschema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
-                  $prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
-                  $prepIns002->bindValue(':sfid',$tasyasfid,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':bschema',$tasyaschema,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':accountid',$tasyaaccountid,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':name',$name,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':contactid',$contactid,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':vctr__ownercompany__c',$vctr__ownercompany__c,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
-                  $prepIns002->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
-                  $prepIns002->execute();
-
-             }
-
-        }
-
 
   }
 
