@@ -79,14 +79,14 @@ try{
                 //  print($row['accountid'].' ');
 
                   $tasyasfid=$row['sfid'];
-                  $tasyaschema=$row['schema'];
+                  $tasyaschema=$row['bschema'];
                 //  $tasyaaccountid = $row['accountid'];
 
                   //他社共有データをマスタテーブル登録
-                  $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:tasyasfid,:tasyaschema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
+                  $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:bschema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
                   $prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
-                  $prepIns002->bindValue(':tasyasfid',$tasyasfid,PDO::PARAM_STR);
-                  $prepIns002->bindValue(':tasyaschema',$tasyaschema,PDO::PARAM_STR);
+                  $prepIns002->bindValue(':sfid',$tasyasfid,PDO::PARAM_STR);
+                  $prepIns002->bindValue(':bschema',$tasyaschema,PDO::PARAM_STR);
                   $prepIns002->bindValue(':accountid',$tasyasfid,PDO::PARAM_STR);
                   $prepIns002->bindValue(':name',$name,PDO::PARAM_STR);
                   $prepIns002->bindValue(':contactid',$contactid,PDO::PARAM_STR);
