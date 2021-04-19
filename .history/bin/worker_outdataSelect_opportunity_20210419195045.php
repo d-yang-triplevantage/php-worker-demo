@@ -70,7 +70,6 @@ try{
              $accountidstmt = $dbh->prepare($accountgetsql);
              $accountidstmt->bindValue(':bschema',$bschema,PDO::PARAM_STR);
              $accountidstmt->bindValue(':accountid',$accountid,PDO::PARAM_STR);
-             $accountidstmt->bindValue(':str_space',$str_space,PDO::PARAM_STR);
              $accountidstmt->execute();
              //結果セットから配列を取得
              $accountItem = $accountidstmt -> fetchAll(PDO::FETCH_ASSOC);

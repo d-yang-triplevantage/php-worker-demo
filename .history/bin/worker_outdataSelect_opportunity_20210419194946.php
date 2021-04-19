@@ -64,13 +64,11 @@ try{
       //  if($vctr__shareng__c == ' '){
            //他社共有データ登録
              //共有先の取引先ID取得
-             $str_space = '';
              //$accountgetsql = 'select id as accid,sfid as accsfid,schema as accschema from sfdcmiddle.middle_account where schema != :bschema and vctr__vectorno__c = :vctr__vectorno__c';
-             $accountgetsql = 'select b.id as accid,b.sfid as accsfid,b.schema as accschema from sfdcmiddle.middle_account a ,sfdcmiddle.middle_account b where b.schema != :bschema and a.sfid = :accountid and  a.vctr__vectorno__c = b.vctr__vectorno__c and a.vctr__vectorno__c !=:str_space';
+             $accountgetsql = 'select b.id as accid,b.sfid as accsfid,b.schema as accschema from sfdcmiddle.middle_account a ,sfdcmiddle.middle_account b where b.schema != :bschema and a.sfid = :accountid and  a.vctr__vectorno__c = b.vctr__vectorno__c and a.vctr__vectorno__c !=''';
              $accountidstmt = $dbh->prepare($accountgetsql);
              $accountidstmt->bindValue(':bschema',$bschema,PDO::PARAM_STR);
              $accountidstmt->bindValue(':accountid',$accountid,PDO::PARAM_STR);
-             $accountidstmt->bindValue(':str_space',$str_space,PDO::PARAM_STR);
              $accountidstmt->execute();
              //結果セットから配列を取得
              $accountItem = $accountidstmt -> fetchAll(PDO::FETCH_ASSOC);
