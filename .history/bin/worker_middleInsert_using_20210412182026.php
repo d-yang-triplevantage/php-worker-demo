@@ -1,9 +1,8 @@
 <?php
 
-//スキームの環境変数取得
-$str_middle=getenv('SCHEMA');
-$schema = explode(":",$str_middle);
-//$schema =['salesforce001'];
+//定数ファイルを読み込み
+//require('config.php');
+$schema =['salesforce001'];
 
 //DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));

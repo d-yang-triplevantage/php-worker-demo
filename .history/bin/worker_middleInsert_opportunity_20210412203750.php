@@ -1,9 +1,8 @@
 <?php
 
-//スキームの環境変数取得
-$str_middle=getenv('SCHEMA');
-$schema = explode(":",$str_middle);
-//$schema =['salesforce001'];
+//定数ファイルを読み込み
+//require('config.php');
+$schema =['salesforce001'];
 
 //DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));
@@ -17,13 +16,13 @@ $DBPASS = $dbopts["pass"];
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-
+  
      foreach ($schema as $value) {
-
+   
        //検索対象スキーマ
        $schemaid = $value.'.opportunity';
 
-
+       
        //データ処理（中間テーブル取り込み）
        //SQL作成
        $sql = 'select * from '.$schemaid;
@@ -32,15 +31,15 @@ try{
       foreach ($dbh->query($sql) as $row) {
         //指定Columnを一覧表示
 
-        print($row['id'].' ');
-        print($row['sfid'].' ');
+        print($row['id'].' ');      
+        print($row['sfid'].' ');     
         print('accountid:'.$row['accountid'].' ');
         print($row['name'].' ');
         print($row['contactid']);
         print($row['vctr__ownercompany__c']);
         print($row['vctr__shareng__c']);
 
-
+        
         $id = $row['id'];
         $sfid=$row['sfid'];
         $schema=$value;
@@ -49,8 +48,8 @@ try{
         $contactid = $row['contactid'];
         $vctr__ownercompany__c = $row['vctr__ownercompany__c'];
         $vctr__shareng__c = $row['vctr__shareng__c'];
-
-
+        
+        
         print('======salesforce.opportunity=========');
         //中間テーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_opportunity(id,sfid, schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c) VALUES(:id,:sfid, :schema,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c)');
@@ -59,11 +58,11 @@ try{
         $prepIns001->bindValue(':schema',$schema,PDO::PARAM_STR);
         $prepIns001->bindValue(':accountid',$accountid,PDO::PARAM_STR);
         $prepIns001->bindValue(':name',$name,PDO::PARAM_STR);
-        $prepIns001->bindValue(':contactid',$contactid,PDO::PARAM_STR);
+        $prepIns001->bindValue(':contactid',$contactid,PDO::PARAM_STR);       
         $prepIns001->bindValue(':vctr__ownercompany__c',$vctr__ownercompany__c,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
         $prepIns001->execute();
-
+        
     }
   }
 

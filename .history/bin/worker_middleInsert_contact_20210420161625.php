@@ -16,12 +16,12 @@ $DBPASS = $dbopts["pass"];
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-
+  
      foreach ($schema as $value) {
-
+   
        //検索対象スキーマ
        $schemaid = $value.'.contact';
-
+       
        //データ処理（中間テーブル取り込み）
        //SQL作成
        $sql = 'select * from '.$schemaid;
@@ -30,7 +30,7 @@ try{
       foreach ($dbh->query($sql) as $row) {
         //指定Columnを一覧表示
 
-        print($row['firstname'].' ');
+        print($row['firstname'].' ');      
         print($row['lastname'].' ');
         print($row['sfid'].' ');
         print($row['email']);
@@ -39,11 +39,12 @@ try{
         $schema=$value;
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
-        $email = $row['email'];
+        $email = $row['email'];    
         print('======salesforce.lead========='.$schemaid);
         //中間テーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_contact(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid, :schema,:firstname,:lastname,:email)');
         $prepIns001->execute(array($id,$sfid,$schema,$firstname,$lastname,$email));
+      
     }
   }
 

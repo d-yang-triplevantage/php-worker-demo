@@ -3,7 +3,7 @@
 //スキームの環境変数取得
 $str_middle=getenv('SCHEMA');
 $schema = explode(":",$str_middle);
-
+//print('schema: '.$schema.' ');
 //DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
@@ -12,15 +12,20 @@ $DBPORT = $dbopts["port"];
 $DBNAME = ltrim($dbopts["path"],'/');
 $DBUSER = $dbopts["user"];
 $DBPASS = $dbopts["pass"];
-
+//        print('DBHOST: '.$DBHOST.' ');
+//        print('DBPORT: '.$DBPORT.' ');
+//        print('DBNAME: '.$DBNAME.' ');
+//        print('DBUSER: '.$DBUSER.' ');
+//        print('DBPASS: '.$DBPASS.' ');
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-
+  
      foreach ($schema as $value) {
-
+   
        //検索対象スキーマ
-       $schemaid = $value.'.contact';
+       $schemaid = $value.'.lead';
+       print('schema value='.$schemaid);
 
        //データ処理（中間テーブル取り込み）
        //SQL作成
@@ -40,10 +45,11 @@ try{
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
         $email = $row['email'];
-        print('======salesforce.lead========='.$schemaid);
+        //print('======salesforce.lead========='.$schemaid);
         //中間テーブル登録
-        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_contact(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid, :schema,:firstname,:lastname,:email)');
+        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_lead(id,sfid, schema,firstname,lastname,email) VALUES(:id,:sfid, :schema,:firstname,:lastname,:email)');
         $prepIns001->execute(array($id,$sfid,$schema,$firstname,$lastname,$email));
+      
     }
   }
 

@@ -1,11 +1,5 @@
 <?php
 
-//スキームの環境変数取得
-$str_middle=getenv('SCHEMA');
-$schema = explode(":",$str_middle);
-//$schema =['salesforce001'];
-
-//DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
 $DBHOST = $dbopts["host"];
@@ -18,22 +12,24 @@ try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
   
-     foreach ($schema as $value) {
+   //マスタ取り込み処理
+   //SQL作成
    
-       //検索対象スキーマ
-       $schemaid = $value.'.vctr__using__c';
+  $sql = 'select a.id,a.sfid ,b.schema as bschema,a.isdeleted,a.name,a.vctr__groupcompany__c,a.vctr__lead__c,a.vctr__optout__c,a.vctr__account__c,a.vctr__contact__c
+          from sfdcmaster.master_using__c  a, sfdcmiddle.middle_using__c b
+          where a.id = b.id
+            and a.sfid = b.sfid';
+  
+  $stmt  = $dbh->query($sql);
 
-       
-       //データ処理（中間テーブル取り込み）
-       //SQL作成
-       $sql = 'select * from '.$schemaid;
-
-      //SQL実行
-      foreach ($dbh->query($sql) as $row) {
-        //指定Columnを一覧表示
+  
+  //SQL実行
+  foreach ($stmt as $row) {
+      //指定Columnを一覧表示
 
         print($row['id'].' ');      
-        print($row['sfid'].' ');     
+        print($row['sfid'].' ');  
+        print($row['bschema'].' '); 
         print('isdeleted:'.$row['isdeleted'].' ');
         print($row['name'].' ');
         print($row['vctr__groupcompany__c']);
@@ -44,7 +40,7 @@ try{
         
         $id = $row['id'];
         $sfid=$row['sfid'];
-        $schema=$value;
+        $bschema=$row['bschema'];
         $isdeleted = $row['isdeleted'];
         $name = $row['name'];
         $vctr__groupcompany__c = $row['vctr__groupcompany__c'];
@@ -54,12 +50,11 @@ try{
         $vctr__contact__c = $row['vctr__contact__c'];
         
         
-        print('======salesforce.using__c========='.$schemaid);
-        //中間テーブル登録
-        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_using__c(id,sfid, schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid, :schema,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__optout__c,:vctr__account__c,:vctr__contact__c)');
+        //マスタテーブル登録
+        $prepIns001 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_using__c(id,sfid,schema,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid,:bschema,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__optout__c,:vctr__account__c,:vctr__contact__c)');
         $prepIns001->bindValue(':id',$id,PDO::PARAM_INT);
         $prepIns001->bindValue(':sfid',$sfid,PDO::PARAM_STR);
-        $prepIns001->bindValue(':schema',$schema,PDO::PARAM_STR);
+        $prepIns001->bindValue(':bschema',$bschema,PDO::PARAM_STR);
         $prepIns001->bindValue(':isdeleted',$isdeleted,PDO::PARAM_BOOL);
         $prepIns001->bindValue(':name',$name,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__groupcompany__c',$vctr__groupcompany__c,PDO::PARAM_STR);
@@ -68,9 +63,7 @@ try{
         $prepIns001->bindValue(':vctr__account__c',$vctr__account__c,PDO::PARAM_STR);
         $prepIns001->bindValue(':vctr__contact__c',$vctr__contact__c,PDO::PARAM_STR);
         $prepIns001->execute();
-      //  $prepIns001->execute(array($id,$sfid,$schema,$isdeleted,$name,$vctr__groupcompany__c,$vctr__lead__c,$vctr__optout__c,$vctr__account__c,$vctr__contact__c));
-        
-    }
+
   }
 
 }catch(PDOException $e){
