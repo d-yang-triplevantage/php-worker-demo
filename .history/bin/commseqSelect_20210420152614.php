@@ -35,7 +35,7 @@ try{
     $nextvalValue = $stmt->fetchAll(PDO::FETCH_ASSOC);
     print(' seq nextval==='.$nextvalValue[0]['nextval'].' ');
     $strSeq=$nextvalValue[0]['nextval'];
-
+    
 }catch(PDOException $e){
   print("接続失敗");
   print($e);
@@ -50,8 +50,8 @@ return $strSeq;
 }
 
 //$strSeqInput='lead';
-$strSeqInput='account';
-$seqget = seqget($strSeqInput);
-print("seqget=".$seqget);
+
+//$seqget = seqget($strSeqInput);
+//print("seqget=".$seqget);
 
 ?>
