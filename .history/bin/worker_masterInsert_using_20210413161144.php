@@ -33,7 +33,7 @@ try{
         print($row['vctr__optout__c']);
         print($row['vctr__account__c']);
         print($row['vctr__contact__c']);
-
+        
         $id = $row['id'];
         $sfid=$row['sfid'];
         $isdeleted = $row['isdeleted'];
@@ -43,8 +43,8 @@ try{
         $vctr__optout__c = $row['vctr__optout__c'];
         $vctr__account__c = $row['vctr__account__c'];
         $vctr__contact__c = $row['vctr__contact__c'];
-
-
+        
+        
         print('======salesforce.using__c=========');
         //マスタテーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_using__c(id,sfid,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__optout__c,:vctr__account__c,:vctr__contact__c)');

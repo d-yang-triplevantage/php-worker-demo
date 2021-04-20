@@ -1,8 +1,5 @@
 <?php
 
-//統合No設定用のSEQを取得
-require('commseqSelect.php');
-
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
 $DBHOST = $dbopts["host"];
@@ -34,6 +31,13 @@ try{
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
+    //  print($row['asfid'].'\n');
+    //  print($row['aschema'].'\n');
+    //  print($row['bsfid'].'\n');
+    //  print($row['bschema'].'\n');
+    //  print($row['bemail'].'\n');
+    //  print($row['blastname'].'\n');
+    //  print($row['bfirstname'].'\n');
      $asfid=$row['asfid'];
      $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
@@ -57,11 +61,11 @@ try{
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
-           //$vectorno__c = '9999001';
-           $vctr__vectorno__c = seqget('lead');
-           $firstname=$keynew[0];
-           $lastname=$keynew[1];
-           $email=$keynew[2];
+           $company = '日精自動車';
+           $vectorno__c = '9999001';
+            $firstname=$keynew[0];
+            $lastname=$keynew[1];
+            $email=$keynew[2];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
 
@@ -81,25 +85,25 @@ try{
              //keyoldのデータ登録
              print('=======keyoldのデータ登録=====');
            //中間テーブル登録
-           //$vectorno__c = '9999001';
-           $vctr__vectorno__c = seqget('lead');
-           $firstname=$keynew[0];
-           $lastname=$keynew[1];
-           $email=$keynew[2];
+           $company = '日精自動車';
+           $vectorno__c = '9999001';
+            $firstname=$keynew[0];
+            $lastname=$keynew[1];
+            $email=$keynew[2];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
 
            //中間テーブルに統合IDを反映
-           $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
-           $stmtUpdate = $dbh->prepare($sqlUpdate);
+          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $stmtUpdate = $dbh->prepare($sqlUpdate);
 
-           $stmtUpdate->bindParam(':company', $company);
-           $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
-           $stmtUpdate->bindParam(':firstname', $firstname);
-           $stmtUpdate->bindParam(':lastname', $lastname);
-           $stmtUpdate->bindParam(':email', $email);
+         // $stmtUpdate->bindParam(':company', $company);
+        //  $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
+        //  $stmtUpdate->bindParam(':firstname', $firstname);
+        //  $stmtUpdate->bindParam(':lastname', $lastname);
+        //  $stmtUpdate->bindParam(':email', $email);
 
-           $stmtUpdate->execute();
+          $stmtUpdate->execute(array($company,$vectorno__c,$firstname,$lastname,$email));
 
 
              //keyoldにkeynewを設定

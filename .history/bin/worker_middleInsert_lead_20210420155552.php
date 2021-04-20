@@ -4,6 +4,7 @@
 //require('config.php');
 //スキームの環境変数取得
 $schema=getenv('SCHEMA');
+print('schema: '.$schema.' ');
 
 //DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));
@@ -26,8 +27,7 @@ try{
    
        //検索対象スキーマ
        $schemaid = $value.'.lead';
-       print('schema value='.$schemaid);
-
+       
        //データ処理（中間テーブル取り込み）
        //SQL作成
        $sql = 'select * from '.$schemaid;

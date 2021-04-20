@@ -1,8 +1,5 @@
 <?php
 
-//統合No設定用のSEQを取得
-require('commseqSelect.php');
-
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
 $DBHOST = $dbopts["host"];
@@ -42,8 +39,7 @@ try{
         $contactid = $row['contactid'];
         $vctr__ownercompany__c = $row['vctr__ownercompany__c'];
         $vctr__shareng__c = $row['vctr__shareng__c'];
-        //$vctr__vectorno__c = 'OPP990001';
-        $vctr__vectorno__c = seqget('opportunity');
+        $vctr__vectorno__c = 'OPP990001';
 
         //マスタテーブル登録
         $prepIns001 = $dbh->prepare('INSERT INTO sfdcmaster.master_opportunity(id,sfid,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');

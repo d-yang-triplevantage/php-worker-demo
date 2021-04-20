@@ -1,8 +1,5 @@
 <?php
 
-//統合No設定用のSEQを取得
-require('commseqSelect.php');
-
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
 $DBHOST = $dbopts["host"];
@@ -60,8 +57,7 @@ try{
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
-           //$vctr__vectorno__c = 'A9999001';
-           $vctr__vectorno__c = seqget('account');
+           $vctr__vectorno__c = 'A9999001';
            $website=$keynew[0];
            $name=$keynew[1];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(website,name,vctr__vectorno__c) VALUES(:website,:name,:vctr__vectorno__c)');
@@ -77,8 +73,7 @@ try{
              //keyoldのデータ登録
              print('=======keyoldのデータ登録=====');
            //中間テーブル登録
-           //$vctr__vectorno__c = 'A9999001';
-           $vctr__vectorno__c = seqget('account');
+           $vctr__vectorno__c = 'A9999001';
            $website=$keynew[0];
            $name=$keynew[1];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(website,name,vctr__vectorno__c) VALUES(:website,:name,:vctr__vectorno__c)');
