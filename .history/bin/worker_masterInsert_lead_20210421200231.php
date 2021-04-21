@@ -26,13 +26,16 @@ try{
                    and a.email = b.email
                   and  a.schema != b.schema';
 
-  $stmt2  = $dbh->query($sql);
+  $stmt  = $dbh->query($sql);
+
+  $count_total = $stmt -> rowCount();
+  $count_loop = 0;
 
   $keynew = ['','',''];
   $keyold = ['','',''];
 
   //SQL実行
-  foreach ($stmt2 as $row) {
+  foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
      $asfid=$row['asfid'];
@@ -44,7 +47,8 @@ try{
      $email = $row['bemail'];
 
 
-     if ($row === reset($stmt2)){
+     //if ($row === reset($stmt)){
+       if($count_loop == 0){
          $keynew = [$firstname,$lastname,$email];
          print($keynew[0].'\n');
          print($keynew[1].'\n');
@@ -54,7 +58,8 @@ try{
         //$keynewに新レコードを設定
         $keynew = [$firstname,$lastname,$email];
      }else{
-          if($row === end($stmt2)){
+          //if($row === end($stmt)){
+            if($count_loop == $count_total){
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
@@ -119,5 +124,5 @@ try{
 }
 
 //データベースへの接続を閉じる
-$dbh2 = null;
+$dbh = null;
 ?>

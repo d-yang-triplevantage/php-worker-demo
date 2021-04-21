@@ -14,7 +14,7 @@ $DBPASS = $dbopts["pass"];
 
 try{
   //DB接続
-  //$dbh001 = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+  $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
 
   //マスタ取り込み処理
    //SQL作成
@@ -27,6 +27,9 @@ try{
                   and  a.schema != b.schema';
 
   $stmt  = $dbh->query($sql);
+
+  $count_total = $stmt -> rowCount();
+  $count_loop = 0;
 
   $keynew = ['','',''];
   $keyold = ['','',''];
@@ -44,7 +47,8 @@ try{
      $email = $row['bemail'];
 
 
-     if ($row === reset($stmt)){
+     //if ($row === reset($stmt)){
+      if($count_loop == 0){
          $keynew = [$firstname,$lastname,$email];
          print($keynew[0].'\n');
          print($keynew[1].'\n');
@@ -54,7 +58,8 @@ try{
         //$keynewに新レコードを設定
         $keynew = [$firstname,$lastname,$email];
      }else{
-          if($row === end($stmt)){
+          //if($row === end($stmt)){
+          if($count_loop == $count_total){
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
@@ -107,7 +112,7 @@ try{
              $keyold = $keynew;
        }
      }
-
+     $count_loop++;
 
   }
 

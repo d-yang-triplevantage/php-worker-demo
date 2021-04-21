@@ -13,7 +13,7 @@ $DBPASS = $dbopts["pass"];
 
 try{
     //DB接続
-    $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+    $dbh002 = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
     $str_space = '';
     $sql = "";
     $str_return =[' ',' '];
@@ -26,7 +26,7 @@ try{
       $sql .= "select b.id as id,b.sfid as sfid,b.schema as schema  from sfdcmiddle.middle_contact a ,sfdcmiddle.middle_contact b  where b.schema != :bschema and a.sfid = :accountid   and  a.vctr__vectorno__c = b.vctr__vectorno__c  and a.vctr__vectorno__c !=:str_space";
      }
 
-    $stmt = $dbh->prepare($sql);
+    $stmt = $dbh002->prepare($sql);
     $stmt->bindValue(':bschema',$strSchema,PDO::PARAM_STR);
     $stmt->bindValue(':accountid',$strid,PDO::PARAM_STR);
     $stmt->bindValue(':str_space',$str_space,PDO::PARAM_STR);
@@ -41,7 +41,7 @@ try{
 }
 
 //データベースへの接続を閉じる
-$dbh = null;
+$dbh002 = null;
 
 //取得結果を返し
 return $result;

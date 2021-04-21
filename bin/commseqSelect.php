@@ -14,7 +14,7 @@ $DBPASS = $dbopts["pass"];
 
 try{
     //DB接続
-    $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+    $dbh001 = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
     $sql = "";
     //リードのSEQを取得
     if($strSeqInput == 'lead'){
@@ -32,7 +32,7 @@ try{
      if($strSeqInput == 'opportunity'){
       $sql .= "SELECT nextval('sfdcmiddle.seq_opportunity')";
      }
-    $stmtsql  = $dbh->query($sql);
+    $stmtsql  = $dbh001->query($sql);
 
     $nextvalValue = $stmtsql->fetchAll(PDO::FETCH_ASSOC);
     print(' seq nextval==='.$nextvalValue[0]['nextval'].' ');
@@ -45,7 +45,7 @@ try{
 }
 
 //データベースへの接続を閉じる
-$dbh = null;
+$dbh001 = null;
 
 //取得結果を返し
 return $strSeq;

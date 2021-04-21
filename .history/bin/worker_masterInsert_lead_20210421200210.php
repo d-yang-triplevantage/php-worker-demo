@@ -1,7 +1,7 @@
 <?php
 
 //統合No設定用のSEQを取得
-require('commseqSelect.php');
+//require('commseqSelect.php');
 require_once('commseqSelect.php');
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
@@ -28,6 +28,9 @@ try{
 
   $stmt  = $dbh->query($sql);
 
+  $count_total = $stmt -> rowCount();
+  $count_loop = 0;
+
   $keynew = ['','',''];
   $keyold = ['','',''];
 
@@ -44,7 +47,8 @@ try{
      $email = $row['bemail'];
 
 
-     if ($row === reset($stmt)){
+     //if ($row === reset($stmt)){
+       if($count_loop == 0){
          $keynew = [$firstname,$lastname,$email];
          print($keynew[0].'\n');
          print($keynew[1].'\n');
@@ -54,7 +58,8 @@ try{
         //$keynewに新レコードを設定
         $keynew = [$firstname,$lastname,$email];
      }else{
-          if($row === end($stmt)){
+          //if($row === end($stmt)){
+            if($count_loop == $count_total)
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
