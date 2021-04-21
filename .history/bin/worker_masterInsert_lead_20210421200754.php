@@ -1,8 +1,8 @@
 <?php
 
 //統合No設定用のSEQを取得
-//require('commseqSelect.php');
-require_once('commseqSelect.php');
+require('commseqSelect.php');
+//require_once('commseqSelect.php');
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
@@ -68,13 +68,14 @@ try{
            $firstname=$keynew[0];
            $lastname=$keynew[1];
            $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:vectorno__c)');
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
 
            //中間テーブルに統合IDを反映
-          $sqlUpdate = 'update sfdcmiddle.middle_lead set vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+          $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
 
+          $stmtUpdate->bindParam(':company', $company);
           $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
           $stmtUpdate->bindParam(':firstname', $firstname);
           $stmtUpdate->bindParam(':lastname', $lastname);
@@ -91,13 +92,14 @@ try{
            $firstname=$keynew[0];
            $lastname=$keynew[1];
            $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:vectorno__c)');
-           $prepIns->execute(array($firstname,$lastname,$email,$vectorno__c));
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
+           $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
 
            //中間テーブルに統合IDを反映
-           $sqlUpdate = 'update sfdcmiddle.middle_lead set vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
+           $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
            $stmtUpdate = $dbh->prepare($sqlUpdate);
 
+           $stmtUpdate->bindParam(':company', $company);
            $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
            $stmtUpdate->bindParam(':firstname', $firstname);
            $stmtUpdate->bindParam(':lastname', $lastname);
