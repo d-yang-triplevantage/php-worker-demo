@@ -59,8 +59,7 @@ try{
      //   $vctr__contact__c_U = $row['vctr__contact__c'];
 
          $schemaid = $schema.'.opportunity';
-         //テスト用複数環境できたら、IF判定を外す
-         if($schema == 'salesforce001'){
+
          //heroku connectテーブル登録&更新
 
         $prepIns = $dbh->prepare('INSERT INTO '.$schemaid.' (id,sfid,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:accountid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__cI)
@@ -75,7 +74,7 @@ try{
         $prepIns->bindValue(':vctr__vectorno__cI',$vctr__vectorno__cI,PDO::PARAM_STR);
         $prepIns->bindValue(':vctr__vectorno__cU',$vctr__vectorno__cU,PDO::PARAM_STR);
         $prepIns->execute();
-      }
+
   }
 
 }catch(PDOException $e){

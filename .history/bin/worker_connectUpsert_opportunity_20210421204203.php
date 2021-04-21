@@ -59,7 +59,7 @@ try{
      //   $vctr__contact__c_U = $row['vctr__contact__c'];
 
          $schemaid = $schema.'.opportunity';
-         //テスト用複数環境できたら、IF判定を外す
+         //テスト用
          if($schema == 'salesforce001'){
          //heroku connectテーブル登録&更新
 

@@ -63,8 +63,7 @@ try{
          $schemaid = $schema.'.vctr__using__c';
 
          //heroku connectテーブル登録
-         //テスト用複数環境できたら、IF判定を外す
-         if($schema == 'salesforce001'){
+
         $prepIns = $dbh->prepare('INSERT INTO '.$schemaid.' (id,sfid,isdeleted,name,vctr__groupcompany__c,vctr__lead__c,vctr__optout__c,vctr__account__c,vctr__contact__c) VALUES(:id,:sfid,:isdeleted,:name,:vctr__groupcompany__c,:vctr__lead__c,:vctr__optout__c,:vctr__account__c,:vctr__contact__c) 
          on conflict(id) do update set isdeleted=:isdeleted ,name=:name ,vctr__groupcompany__c=:vctr__groupcompany__c ,vctr__lead__c=:vctr__lead__c, vctr__optout__c=:vctr__optout__c ,vctr__account__c=:vctr__account__c ,vctr__contact__c=:vctr__contact__c');
         $prepIns->bindValue(':id',$id,PDO::PARAM_INT);
@@ -77,7 +76,7 @@ try{
         $prepIns->bindValue(':vctr__account__c',$vctr__account__c,PDO::PARAM_STR);
         $prepIns->bindValue(':vctr__contact__c',$vctr__contact__c,PDO::PARAM_STR);
         $prepIns->execute();
-         }
+      
   }
 
 }catch(PDOException $e){
