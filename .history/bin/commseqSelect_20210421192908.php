@@ -1,7 +1,7 @@
 <?php
 
 //SEQを取得関数
-if(!function_exists('seqget')){
+if(!function_exists('f')){
 function  seqget($strSeqInput){
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
