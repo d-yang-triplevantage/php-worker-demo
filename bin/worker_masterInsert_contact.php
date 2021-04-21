@@ -27,6 +27,9 @@ try{
   
   $stmt  = $dbh->query($sql);
 
+  $count_total = $stmt -> rowCount();
+  $count_loop = 0;
+
   $keynew = ['','',''];
   $keyold = ['','',''];
   
@@ -50,7 +53,8 @@ try{
      $email = $row['bemail'];
      
 
-     if ($row === reset($stmt)){
+     //if ($row === reset($stmt)){
+      if($count_loop == 0){
          $keynew = [$firstname,$lastname,$email];
          print($keynew[0].' ');
          print($keynew[1].' ');
@@ -60,7 +64,8 @@ try{
         //$keynewに新レコードを設定
         $keynew = [$firstname,$lastname,$email];
      }else{
-          if($row === end($stmt)){
+          //if($row === end($stmt)){
+            if($count_loop == $count_total){
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
             //中間テーブル登録
@@ -98,6 +103,7 @@ try{
             $keyold = $keynew;
        }
      }
+     $count_loop++;
   }
 
 }catch(PDOException $e){

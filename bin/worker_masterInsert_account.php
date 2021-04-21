@@ -25,13 +25,16 @@ try{
                  and a.name = b.name
                  and  a.schema != b.schema';
 
-  $stmt_account  = $dbh->query($sql);
+  $stmt  = $dbh->query($sql);
+
+  $count_total = $stmt -> rowCount();
+  $count_loop = 0;
 
   $keynew = ['',''];
   $keyold = ['',''];
 
   //SQL実行
-  foreach ($stmt_account as $row) {
+  foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
       print($row['asfid'].' ');
@@ -48,7 +51,8 @@ try{
      $name = $row['bname'];
 
 
-     if ($row === reset($stmt_account)){
+     //if ($row === reset($stmt)){
+      if($count_loop == 0){
          $keynew = [$website,$name];
          print($keynew[0].' ');
          print($keynew[1].' ');
@@ -57,7 +61,8 @@ try{
         //$keynewに新レコードを設定
         $keynew = [$website,$name];
      }else{
-          if($row === end($stmt_account)){
+          //if($row === end($stmt)){
+            if($count_loop == $count_total){
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
@@ -96,7 +101,7 @@ try{
              $keyold = $keynew;
        }
      }
-
+     $count_loop++;
 
   }
 

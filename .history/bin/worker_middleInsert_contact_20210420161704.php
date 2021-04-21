@@ -1,10 +1,8 @@
 <?php
 
 //スキームの環境変数取得
-//$str_middle=getenv('SCHEMA');
-//$schema = explode(":",$str_middle);
-//テスト用
-$schema =['salesforce001','salesforce002'];
+$str_middle=getenv('SCHEMA');
+$schema = explode(":",$str_middle);
 
 //DB接続情報を取得
 $dbopts = parse_url(getenv('DATABASE_URL'));

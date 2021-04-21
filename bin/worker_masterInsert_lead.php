@@ -1,8 +1,8 @@
 <?php
 
 //統合No設定用のSEQを取得
-//require('commseqSelect.php');
-require_once('commseqSelect.php');
+require('commseqSelect.php');
+//require_once('commseqSelect.php');
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
