@@ -94,8 +94,7 @@ try{
                 $opp_accountid = $value['sfid'];
                 $accountschema = $value['schema'];
             }
-              if ($accountschema != ''){
-                //他社共有データをマスタテーブル登録
+            //他社共有データをマスタテーブル登録
                 $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:accountschema,:opp_accountid,:name,:opp_contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
                 $prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
                 $prepIns002->bindValue(':sfid',$sfid,PDO::PARAM_STR);
@@ -107,7 +106,6 @@ try{
                 $prepIns002->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
                 $prepIns002->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
                 $prepIns002->execute();
-              }
         }
 
       }
