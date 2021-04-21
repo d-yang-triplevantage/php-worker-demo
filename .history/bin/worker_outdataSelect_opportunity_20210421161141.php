@@ -104,7 +104,8 @@ try{
                 $prepIns002->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
                 $prepIns002->execute();
         }
-        
+
+
       }
 
 }catch(PDOException $e){

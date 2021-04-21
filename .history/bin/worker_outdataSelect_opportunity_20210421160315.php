@@ -72,12 +72,9 @@ try{
             //共有先の取引先責任者ID取得
             $getContact = getShareid($strTypeInput,$strSchema,$strconid);
             foreach ($getContact as $value) {
-               // print('contact id='.$value['id'].' ');
-               // print($value['sfid'].' ');
-               // print($value['schema'].' ');
-
-                $opp_contactid = ['sfid'];
-               // $contactschema = $value['schema'];
+                print('contact id='.$value['id'].' ');
+                print($value['sfid'].' ');
+                print($value['schema'].' ');
             }
             //共有先の取引先ID取得
             $strTypeInput = 'account';
@@ -85,26 +82,14 @@ try{
             $straccid = $accountid;
             $getAccount = getShareid($strTypeInput,$strSchema,$accountid);
             foreach ($getAccount as $value) {
-              //  print('account id='.$value['id'].' ');
+                print('account id='.$value['id'].' ');
                 print($value['sfid'].' ');
                 print($value['schema'].' ');
-                $opp_accountid = ['sfid'];
-                $accountschema = $value['schema'];
             }
-            //他社共有データをマスタテーブル登録
-                $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:accountschema,:opp_accountid,:name,:opp_contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
-                $prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
-                $prepIns002->bindValue(':sfid',$sfid,PDO::PARAM_STR);
-                $prepIns002->bindValue(':accountschema',$accountschema,PDO::PARAM_STR);
-                $prepIns002->bindValue(':opp_accountid',$opp_accountid,PDO::PARAM_STR);
-                $prepIns002->bindValue(':name',$name,PDO::PARAM_STR);
-                $prepIns002->bindValue(':opp_contactid',$opp_contactid,PDO::PARAM_STR);
-                $prepIns002->bindValue(':vctr__ownercompany__c',$vctr__ownercompany__c,PDO::PARAM_STR);
-                $prepIns002->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
-                $prepIns002->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
-                $prepIns002->execute();
+            
         }
-        
+
+
       }
 
 }catch(PDOException $e){

@@ -92,19 +92,20 @@ try{
                 $accountschema = $value['schema'];
             }
             //他社共有データをマスタテーブル登録
-                $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:accountschema,:opp_accountid,:name,:opp_contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
+                $prepIns002 = $dbh->prepare('INSERT INTO sfdcmiddle.middle_out_opportunity(id,sfid,schema,accountid,name,contactid,vctr__ownercompany__c,vctr__shareng__c,vctr__vectorno__c) VALUES(:id,:sfid,:tasyaschema,:tasyasfid,:name,:contactid,:vctr__ownercompany__c,:vctr__shareng__c,:vctr__vectorno__c)');
                 $prepIns002->bindValue(':id',$id,PDO::PARAM_INT);
                 $prepIns002->bindValue(':sfid',$sfid,PDO::PARAM_STR);
-                $prepIns002->bindValue(':accountschema',$accountschema,PDO::PARAM_STR);
-                $prepIns002->bindValue(':opp_accountid',$opp_accountid,PDO::PARAM_STR);
+                $prepIns002->bindValue(':tasyaschema',$tasyaschema,PDO::PARAM_STR);
+                $prepIns002->bindValue(':tasyasfid',$tasyasfid,PDO::PARAM_STR);
                 $prepIns002->bindValue(':name',$name,PDO::PARAM_STR);
-                $prepIns002->bindValue(':opp_contactid',$opp_contactid,PDO::PARAM_STR);
+                $prepIns002->bindValue(':contactid',$contactid,PDO::PARAM_STR);
                 $prepIns002->bindValue(':vctr__ownercompany__c',$vctr__ownercompany__c,PDO::PARAM_STR);
                 $prepIns002->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
                 $prepIns002->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
                 $prepIns002->execute();
         }
-        
+
+
       }
 
 }catch(PDOException $e){
