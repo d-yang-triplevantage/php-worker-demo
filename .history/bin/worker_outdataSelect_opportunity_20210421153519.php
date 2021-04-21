@@ -70,7 +70,7 @@ try{
         $strconid = $contactid;
         //共有先の取引先責任者ID取得
         $getAccountid = getShareid($strTypeInput,$strSchema,$strconid);
-        print("getcontactid=".$getAccountid(1));
+        print("getcontactid=".$getAccountid);
         //print("getcontactid=".$getAccountid);
         //print("getcontactid=".$getAccountid['id']);
         //print("getcontactsfid=".$getAccountid['sfid']);
