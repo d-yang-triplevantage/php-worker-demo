@@ -2,7 +2,6 @@
 
 //統合No設定用のSEQを取得
 require('commseqSelect.php');
-require_once('commseqSelect.php');
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
@@ -15,28 +14,28 @@ $DBPASS = $dbopts["pass"];
 try{
   //DB接続
   $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
-
+  
   //マスタ取り込み処理
    //SQL作成
-
-
+   
+  
     $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.website as bwebsite,b.name as bname from sfdcmiddle.middle_account a ,sfdcmiddle.middle_account b
                where a.website = b.website
                  and a.name = b.name
                  and  a.schema != b.schema';
-
+  
   $stmt  = $dbh->query($sql);
 
   $keynew = ['',''];
   $keyold = ['',''];
-
+  
   //SQL実行
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
-      print($row['asfid'].' ');
+      print($row['asfid'].' ');      
       print($row['aschema'].' ');
-      print($row['bsfid'].' ');
+      print($row['bsfid'].' ');      
       print($row['bschema'].' ');
       print($row['bwebsite'].' ');
       print($row['bname'].' ');
@@ -46,7 +45,7 @@ try{
      $bschema=$row['bschema'];
      $website = $row['bwebsite'];
      $name = $row['bname'];
-
+     
 
      if ($row === reset($stmt)){
          $keynew = [$website,$name];
@@ -67,13 +66,13 @@ try{
            $name=$keynew[1];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(website,name,vctr__vectorno__c) VALUES(:website,:name,:vctr__vectorno__c)');
            $prepIns->execute(array($website,$name,$vctr__vectorno__c));
-
+           
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_account set vctr__vectorno__c=:vctr__vectorno__c WHERE website = :website and name=:name';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
-
+          
           $stmtUpdate->execute(array($vctr__vectorno__c,$website,$name));
-
+           
          }else{
              //keyoldのデータ登録
              print('=======keyoldのデータ登録=====');
@@ -84,20 +83,20 @@ try{
            $name=$keynew[1];
            $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(website,name,vctr__vectorno__c) VALUES(:website,:name,:vctr__vectorno__c)');
            $prepIns->execute(array($website,$name,$vctr__vectorno__c));
-
+           
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_account set vctr__vectorno__c=:vctr__vectorno__c WHERE website = :website and name=:name';
           $stmtUpdate = $dbh->prepare($sqlUpdate);
-
+          
           $stmtUpdate->execute(array($vctr__vectorno__c,$website,$name));
-
-
+           
+           
              //keyoldにkeynewを設定
              $keyold = $keynew;
        }
      }
-
-
+      
+      
   }
 
 
