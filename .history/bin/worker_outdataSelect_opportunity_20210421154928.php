@@ -71,20 +71,12 @@ try{
         //共有先の取引先責任者ID取得
         $getContact = getShareid($strTypeInput,$strSchema,$strconid);
         foreach ($getContact as $value) {
-          print('contact id='.$value['id'].' ');
+          print($value['id'].' ');
           print($value['sfid'].' ');
           print($value['schema'].' ');
         }
-        //共有先の取引先ID取得
-        $strTypeInput = 'account';
-        $strSchema = $bschema;
-        $straccid = $accountid;
-        $getAccount = getShareid($strTypeInput,$strSchema,$accountid);
-        foreach ($getAccount as $value) {
-          print('account id='.$value['id'].' ');
-          print($value['sfid'].' ');
-          print($value['schema'].' ');
-        }
+
+ 
 
       }
 
