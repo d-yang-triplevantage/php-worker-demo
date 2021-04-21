@@ -1,7 +1,7 @@
 <?php
 
 //共有先の取引先ID、取引先責任者IDを取得
-require('commGetid.php');
+//require('commGetid.php');
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
@@ -67,12 +67,6 @@ try{
         //他社共有データ登録
         $strTypeInput = 'contact';
         $strSchema = $bschema;
-        $strconid = $contactid;
-        //共有先の取引先責任者ID取得
-        $getAccountid = getShareid($strTypeInput,$strSchema,$strconid);
-        print("getcontactid=".$getAccountid[0]['id']);
-        print("getcontactsfid=".$getAccountid[0]['sfid']);
-        print("getschema=".$getAccountid[0]['schema']);
         
       }
 

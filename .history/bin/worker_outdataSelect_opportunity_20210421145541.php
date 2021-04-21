@@ -70,10 +70,7 @@ try{
         $strconid = $contactid;
         //共有先の取引先責任者ID取得
         $getAccountid = getShareid($strTypeInput,$strSchema,$strconid);
-        print("getcontactid=".$getAccountid[0]['id']);
-        print("getcontactsfid=".$getAccountid[0]['sfid']);
-        print("getschema=".$getAccountid[0]['schema']);
-        
+
       }
 
 }catch(PDOException $e){

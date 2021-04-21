@@ -64,37 +64,16 @@ try{
         $prepIns001->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
         $prepIns001->execute();
 
-        //他社共有データ登録
-        $strTypeInput = 'contact';
-        $strSchema = $bschema;
-        $strconid = $contactid;
-        //共有先の取引先責任者ID取得
-        $getAccountid = getShareid($strTypeInput,$strSchema,$strconid);
-        print("getcontactid=".$getAccountid[0]['id']);
-        print("getcontactsfid=".$getAccountid[0]['sfid']);
-        print("getschema=".$getAccountid[0]['schema']);
-        
-      }
-
-}catch(PDOException $e){
-  print("接続失敗");
-  print($e);
-  die();
-}
-//データベースへの接続を閉じる
-$dbh = null;
-
-?>
         //space定義
        // $str_space = '';
       // $getid = '';
-       // if($vctr__shareng__c != ' '){
+      //  if($vctr__shareng__c != ' '){
            //他社共有データ登録
-          // $strTypeInput = 'contact';
-          // $strSchema = $bschema;
-           //$strconid = $contactid;
+           $strTypeInput = 'contact';
+           $strSchema = $bschema;
+           $strconid = $contactid;
           // $getid = ['','',''];
-           //$getid = array('id' => '', 'sfid' => '', 'schema' => '');
+           $getid = array('id' => '', 'sfid' => '', 'schema' => '');
            　//共有先の取引先責任者ID取得
            //getShareid($strTypeInput,$strSchema,$strconid);
 
@@ -135,5 +114,20 @@ $dbh = null;
             //      $prepIns002->bindValue(':vctr__shareng__c',$vctr__shareng__c,PDO::PARAM_BOOL);
             //      $prepIns002->bindValue(':vctr__vectorno__c',$vctr__vectorno__c,PDO::PARAM_STR);
             //      $prepIns002->execute();
-        //    }
 
+
+
+      //  }
+
+
+
+}catch(PDOException $e){
+  print("接続失敗");
+  print($e);
+  die();
+}
+
+//データベースへの接続を閉じる
+$dbh = null;
+
+?>

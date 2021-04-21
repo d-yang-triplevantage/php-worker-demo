@@ -1,7 +1,7 @@
 <?php
 
 //取引先ID、取引先責任者IDを取得関数
-function  getShareid($strSeqInput,$strSchema,$strid){
+function  getid($strSeqInput,$strSchema,$strid){
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
@@ -58,7 +58,7 @@ return $result;
 //$strSchema = 'salesforce001';
 //$strid = '0035h000003dEHJAA2';
 //$strid = '0015h000005jTEZAA2';
-//$getid = getid($strSeqInput,$strSchema,$strid);
+$getid = getid($strSeqInput,$strSchema,$strid);
 //print("getid=".$getid[0]['id']);
 //print("getsfid=".$getid[0]['sfid']);
 //print("getschema=".$getid[0]['schema']);

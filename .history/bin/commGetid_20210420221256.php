@@ -1,7 +1,7 @@
 <?php
 
 //取引先ID、取引先責任者IDを取得関数
-function  getShareid($strSeqInput,$strSchema,$strid){
+function  getid($strSeqInput,$strSchema,$strid){
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
 
