@@ -1,7 +1,6 @@
 <?php
 
 //SEQを取得関数
-if(!function_exists('f')){
 function  seqget($strSeqInput){
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
@@ -32,9 +31,9 @@ try{
      if($strSeqInput == 'opportunity'){
       $sql .= "SELECT nextval('sfdcmiddle.seq_opportunity')";
      }
-    $stmtsql  = $dbh->query($sql);
+    $stmt  = $dbh->query($sql);
 
-    $nextvalValue = $stmtsql->fetchAll(PDO::FETCH_ASSOC);
+    $nextvalValue = $stmt->fetchAll(PDO::FETCH_ASSOC);
     print(' seq nextval==='.$nextvalValue[0]['nextval'].' ');
     $strSeq=$nextvalValue[0]['nextval'];
 
@@ -51,7 +50,7 @@ $dbh = null;
 return $strSeq;
 
 }
-}
+
 //テスト用
 //$strSeqInput='lead';
 //$strSeqInput='account';

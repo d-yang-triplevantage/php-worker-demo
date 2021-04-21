@@ -14,7 +14,7 @@ $DBPASS = $dbopts["pass"];
 
 try{
   //DB接続
-  //$dbh001 = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+  $dbh2 = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
 
   //マスタ取り込み処理
    //SQL作成
@@ -26,13 +26,13 @@ try{
                    and a.email = b.email
                   and  a.schema != b.schema';
 
-  $stmt  = $dbh->query($sql);
+  $stmt2  = $dbh2->query($sql);
 
   $keynew = ['','',''];
   $keyold = ['','',''];
 
   //SQL実行
-  foreach ($stmt as $row) {
+  foreach ($stmt2 as $row) {
       //指定Columnを一覧表示
 
      $asfid=$row['asfid'];
@@ -44,7 +44,7 @@ try{
      $email = $row['bemail'];
 
 
-     if ($row === reset($stmt)){
+     if ($row === reset($stmt2)){
          $keynew = [$firstname,$lastname,$email];
          print($keynew[0].'\n');
          print($keynew[1].'\n');
@@ -54,7 +54,7 @@ try{
         //$keynewに新レコードを設定
         $keynew = [$firstname,$lastname,$email];
      }else{
-          if($row === end($stmt)){
+          if($row === end($stmt2)){
              //keyoldデータ登録
              print('=======keyoldのデータ登録=最後====');
            //中間テーブル登録
@@ -68,7 +68,7 @@ try{
 
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
-          $stmtUpdate = $dbh->prepare($sqlUpdate);
+          $stmtUpdate = $dbh2->prepare($sqlUpdate);
 
           $stmtUpdate->bindParam(':company', $company);
           $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
@@ -87,12 +87,12 @@ try{
            $firstname=$keynew[0];
            $lastname=$keynew[1];
            $email=$keynew[2];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
+           $prepIns = $dbh2->prepare('INSERT INTO sfdcmaster.master_lead(firstname,lastname,email,company,vctr__vectorno__c) VALUES(:firstname,:lastname,:email,:company,:vectorno__c)');
            $prepIns->execute(array($firstname,$lastname,$email,$company,$vectorno__c));
 
            //中間テーブルに統合IDを反映
            $sqlUpdate = 'update sfdcmiddle.middle_lead set company = :company,vctr__vectorno__c=:vectorno__c WHERE firstname = :firstname and lastname=:lastname and email=:email';
-           $stmtUpdate = $dbh->prepare($sqlUpdate);
+           $stmtUpdate = $dbh2->prepare($sqlUpdate);
 
            $stmtUpdate->bindParam(':company', $company);
            $stmtUpdate->bindParam(':vectorno__c', $vectorno__c);
@@ -119,5 +119,5 @@ try{
 }
 
 //データベースへの接続を閉じる
-$dbh = null;
+$dbh2 = null;
 ?>

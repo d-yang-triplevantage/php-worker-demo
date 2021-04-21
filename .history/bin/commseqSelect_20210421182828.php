@@ -32,9 +32,9 @@ try{
      if($strSeqInput == 'opportunity'){
       $sql .= "SELECT nextval('sfdcmiddle.seq_opportunity')";
      }
-    $stmtsql  = $dbh->query($sql);
+    $stmt  = $dbh->query($sql);
 
-    $nextvalValue = $stmtsql->fetchAll(PDO::FETCH_ASSOC);
+    $nextvalValue = $stmt->fetchAll(PDO::FETCH_ASSOC);
     print(' seq nextval==='.$nextvalValue[0]['nextval'].' ');
     $strSeq=$nextvalValue[0]['nextval'];
 

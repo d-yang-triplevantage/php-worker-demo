@@ -14,7 +14,7 @@ $DBPASS = $dbopts["pass"];
 
 try{
   //DB接続
-  //$dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+  $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
 
   //マスタ取り込み処理
    //SQL作成

@@ -1,7 +1,7 @@
 <?php
 
 //統合No設定用のSEQを取得
-//require('commseqSelect.php');
+require('commseqSelect.php');
 require_once('commseqSelect.php');
 
 $dbopts = parse_url(getenv('DATABASE_URL'));
@@ -14,7 +14,7 @@ $DBPASS = $dbopts["pass"];
 
 try{
   //DB接続
-  //$dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
+  $dbh = new PDO("pgsql:host=$DBHOST;port=$DBPORT;dbname=$DBNAME;user=$DBUSER;password=$DBPASS");
   
    //マスタ取り込み処理
    //SQL作成
