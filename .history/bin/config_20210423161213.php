@@ -40,11 +40,11 @@
 
  //配列結合
  //$array1 = array('color'=>'red', 10=>1, 0=>3);
- $array1=['','','',''];
-$array1[0] = 100;
-$array1[1] = 200;
-$array1[2] = 300;
-$array1[3] = 400;
+
+$array1[] = 100;
+$array1[] = 200;
+$array1[] = 300;
+$array1[] = 400;
 
 //$array2 = array('a', 'b', 'color'=>'green', 5);
 //$array = array_merge($array1, $array2);

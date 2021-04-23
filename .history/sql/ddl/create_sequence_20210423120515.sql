@@ -1,8 +1,4 @@
-DROP SEQUENCE  IF EXISTS sfdcmiddle.seq_lead;
 CREATE SEQUENCE sfdcmiddle.seq_lead INCREMENT 1 MAXVALUE 999999 START 1;
-DROP SEQUENCE  IF EXISTS sfdcmiddle.seq_account;
 CREATE SEQUENCE sfdcmiddle.seq_account INCREMENT 1 MAXVALUE 999999 START 1;
-DROP SEQUENCE  IF EXISTS sfdcmiddle.seq_contact;
 CREATE SEQUENCE sfdcmiddle.seq_contact INCREMENT 1 MAXVALUE 999999 START 1;
-DROP SEQUENCE  IF EXISTS sfdcmiddle.seq_opportunity;
 CREATE SEQUENCE sfdcmiddle.seq_opportunity INCREMENT 1 MAXVALUE 999999 START 1;

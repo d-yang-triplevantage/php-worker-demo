@@ -47,7 +47,6 @@ try{
              $schema=$value;
              $website = $row['website'];
              $name_tmp = $row['name'];
-             //企業名編集
              $name = accountNameEdit($name_tmp);
 
               print('======salesforce.account========='.$schemaid);

@@ -1,8 +1,5 @@
 <?php
 
-//企業名編集
-require_once('commNameEdit.php');
-
 //スキームの環境変数取得
 //$str_middle=getenv('SCHEMA');
 //$schema = explode(":",$str_middle);
@@ -46,9 +43,7 @@ try{
              $sfid=$row['sfid'];
              $schema=$value;
              $website = $row['website'];
-             $name_tmp = $row['name'];
-             //企業名編集
-             $name = accountNameEdit($name_tmp);
+             $name = $row['name'];
 
               print('======salesforce.account========='.$schemaid);
               //中間テーブル登録

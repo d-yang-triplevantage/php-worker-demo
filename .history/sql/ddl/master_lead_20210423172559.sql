@@ -68,7 +68,7 @@ CREATE TABLE "sfdcmaster"."master_lead" (
     "vctr__vectorno__c" character varying(255),
     CONSTRAINT "hcu_idx_master_lead_sfid" UNIQUE ("sfid"),
     CONSTRAINT "master_lead_pkey" PRIMARY KEY ("id")
-) ;
+) WITH (oids = false);
 
 CREATE INDEX "hc_idx_master_lead_lastmodifieddate" ON "sfdcmaster"."master_lead" USING btree ("lastmodifieddate");
 

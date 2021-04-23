@@ -22,8 +22,7 @@ try{
    $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.lastname as blastname,b.firstname as bfirstname,b.email as bemail from sfdcmiddle.middle_contact a ,sfdcmiddle.middle_contact b
                where a.lastname = b.lastname
                    and a.firstname = b.firstname
-                   and (a.email = b.email
-                       or a.phone = b.phone )
+                   and a.email = b.email
                    and  a.schema != b.schema';
   
   $stmt  = $dbh->query($sql);

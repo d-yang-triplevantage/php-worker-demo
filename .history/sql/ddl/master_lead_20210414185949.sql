@@ -1,8 +1,8 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmaster"."master_lead";
-DROP SEQUENCE IF EXISTS "sfdcmaster"."master_lead_id_seq";
-CREATE SEQUENCE "sfdcmaster"."master_lead_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "master_lead";
+DROP SEQUENCE IF EXISTS master_lead_id_seq;
+CREATE SEQUENCE master_lead_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
 CREATE TABLE "sfdcmaster"."master_lead" (
     "converteddate" date,
@@ -68,7 +68,7 @@ CREATE TABLE "sfdcmaster"."master_lead" (
     "vctr__vectorno__c" character varying(255),
     CONSTRAINT "hcu_idx_master_lead_sfid" UNIQUE ("sfid"),
     CONSTRAINT "master_lead_pkey" PRIMARY KEY ("id")
-) ;
+) WITH (oids = false);
 
 CREATE INDEX "hc_idx_master_lead_lastmodifieddate" ON "sfdcmaster"."master_lead" USING btree ("lastmodifieddate");
 

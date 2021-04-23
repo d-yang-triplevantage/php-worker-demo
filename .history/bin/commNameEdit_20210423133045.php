@@ -13,14 +13,14 @@ function  accountNameEdit($strAccountName){
 
 //①イオン株式会社　⇒「イオン」
 
-//$input1 ="イオン株式会社";
-//$output1 = trim(str_replace("株式会社","",$input1));
+$input1 ="イオン株式会社";
+$output1 = trim(str_replace("株式会社","",$input1));
 //echo "編集後:".$output1;
 
 //②株式会社 明治　 ⇒「明治」
 
-//$input2 ='株式会社 明治';
-//$output2 = trim(str_replace('株式会社','',$input2));
+$input2 ='株式会社 明治';
+$output2 = trim(str_replace('株式会社','',$input2));
 
 
 //echo '編集後:'.$output2;

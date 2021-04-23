@@ -13,14 +13,14 @@ function  accountNameEdit($strAccountName){
 
 //①イオン株式会社　⇒「イオン」
 
-//$input1 ="イオン株式会社";
-//$output1 = trim(str_replace("株式会社","",$input1));
+$input1 ="イオン株式会社";
+$output1 = trim(str_replace("株式会社","",$input1));
 //echo "編集後:".$output1;
 
 //②株式会社 明治　 ⇒「明治」
 
-//$input2 ='株式会社 明治';
-//$output2 = trim(str_replace('株式会社','',$input2));
+$input2 ='株式会社 明治';
+$output2 = trim(str_replace('株式会社','',$input2));
 
 
 //echo '編集後:'.$output2;
@@ -53,10 +53,17 @@ function  accountNameEdit($strAccountName){
 //$output13=mb_convert_kana($output12);
 //echo $output13;
 
+//・株式会社、・、スペース削除
+//・半角はすべて全角に変換
+//・小文字は大文字に変換
+//・株式会社関連の外字・環境依存対応
+//  ㈱、㊑、㍿、㈲、㊒
+//  ※ひらがな・カタカナの相互変換は不要
 
 //・小文字は大文字に変換
+$tmp_strAccountName=mb_strtoupper($strAccountName);
 //・半角はすべて全角に変換
-$tmp_strAccountName=mb_convert_kana(mb_strtoupper($strAccountName));
+$tmp_strAccountNamekana=mb_convert_kana($tmp_strAccountName);
 
 //・株式会社、・、スペース削除
 //・株式会社関連の外字・環境依存対応
@@ -65,9 +72,9 @@ $tmp_strAccountName=mb_convert_kana(mb_strtoupper($strAccountName));
 $search = array("株式会社","・", "㈱","㊑","㍿","㈲","㊒");
 $replace = array("","","","","","","");
 
-$nameEditResult = trim(str_replace($search,$replace,$tmp_strAccountName));
+$editNameAfter = trim(str_replace($search,$replace,$tmp_strAccountNamekana));
 
- return  $nameEditResult;
+ return  $editNameAfter;
 
 }
 
