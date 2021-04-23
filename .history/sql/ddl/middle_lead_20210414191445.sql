@@ -1,10 +1,10 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmiddle"."middle_out_lead";
-DROP SEQUENCE IF EXISTS "sfdcmiddle"."middle_out_lead_id_seq";
-CREATE SEQUENCE "sfdcmiddle"."middle_out_lead_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "middle_lead";
+DROP SEQUENCE IF EXISTS middle_lead_id_seq;
+CREATE SEQUENCE middle_lead_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
-CREATE TABLE "sfdcmiddle"."middle_out_lead" (
+CREATE TABLE "sfdcmiddle"."middle_lead" (
     "converteddate" date,
     "jigsaw" character varying(20),
     "lastname" character varying(80),
@@ -58,7 +58,7 @@ CREATE TABLE "sfdcmiddle"."middle_out_lead" (
     "fax" character varying(40),
     "industry" character varying(255),
     "sfid" character varying(18),
-    "id" integer NOT NULL,
+    "id" integer  NOT NULL,
     "_hc_lastop" character varying(32),
     "_hc_err" text,
     "vctr__ownerid__c" character varying(1300),
@@ -66,13 +66,13 @@ CREATE TABLE "sfdcmiddle"."middle_out_lead" (
     "vctr__ownercompany__c" character varying(18),
     "vctr__shareok__c" boolean,
     "vctr__vectorno__c" character varying(255),
-    CONSTRAINT "hcu_idx_middle_out_lead_sfid" UNIQUE ("sfid"),
-    CONSTRAINT "middle_out_lead_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "hcu_idx_middle_lead_sfid" UNIQUE ("sfid"),
+    CONSTRAINT "middle_lead_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
-CREATE INDEX "hc_idx_middle_out_lead_lastmodifieddate" ON "sfdcmiddle"."middle_out_lead" USING btree ("lastmodifieddate");
+CREATE INDEX "hc_idx_middle_lead_lastmodifieddate" ON "sfdcmiddle"."middle_lead" USING btree ("lastmodifieddate");
 
-CREATE INDEX "hc_idx_middle_out_lead_systemmodstamp" ON "sfdcmiddle"."middle_out_lead" USING btree ("systemmodstamp");
+CREATE INDEX "hc_idx_middle_lead_systemmodstamp" ON "sfdcmiddle"."middle_lead" USING btree ("systemmodstamp");
 
 
 -- 2021-04-14 09:42:35.703933+00

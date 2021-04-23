@@ -1,8 +1,8 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmiddle"."middle_out_account";
-DROP SEQUENCE IF EXISTS "sfdcmiddle"."middle_out_account_id_seq";
-CREATE SEQUENCE "sfdcmiddle"."middle_out_account_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "middle_out_account";
+DROP SEQUENCE IF EXISTS middle_out_account_id_seq;
+CREATE SEQUENCE middle_out_account_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
 CREATE TABLE "sfdcmiddle"."middle_out_account" (
     "vctr__ownerid__c" character varying(1300),

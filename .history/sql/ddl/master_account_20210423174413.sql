@@ -1,10 +1,10 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmiddle"."middle_out_account";
-DROP SEQUENCE IF EXISTS "sfdcmiddle"."middle_out_account_id_seq";
-CREATE SEQUENCE "sfdcmiddle"."middle_out_account_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "sfdcmaster"."master_account";
+DROP SEQUENCE IF EXISTS "sfdcmaster"."master_account_id_seq";
+CREATE SEQUENCE "sfdcmaster"."master_account_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
-CREATE TABLE "sfdcmiddle"."middle_out_account" (
+CREATE TABLE "sfdcmaster"."master_account" (
     "vctr__ownerid__c" character varying(1300),
     "jigsaw" character varying(20),
     "shippinglongitude" double precision,
@@ -68,13 +68,13 @@ CREATE TABLE "sfdcmiddle"."middle_out_account" (
     "id" integer  NOT NULL,
     "_hc_lastop" character varying(32),
     "_hc_err" text,
-    CONSTRAINT "middle_out_account_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "hcu_idx_middle_out_account_sfid" UNIQUE ("sfid")
-) WITH (oids = false);
+    CONSTRAINT "master_account_pkey" PRIMARY KEY ("id"),
+    CONSTRAINT "hcu_idx_master_account_sfid" UNIQUE ("sfid")
+);
 
-CREATE INDEX "hc_idx_middle_out_account_lastmodifieddate" ON "sfdcmiddle"."middle_out_account" USING btree ("lastmodifieddate");
+CREATE INDEX "hc_idx_master_account_lastmodifieddate" ON "sfdcmaster"."master_account" USING btree ("lastmodifieddate");
 
-CREATE INDEX "hc_idx_middle_out_account_systemmodstamp" ON "sfdcmiddle"."middle_out_account" USING btree ("systemmodstamp");
+CREATE INDEX "hc_idx_master_account_systemmodstamp" ON "sfdcmaster"."master_account" USING btree ("systemmodstamp");
 
 
 -- 2021-04-14 09:43:57.915289+00

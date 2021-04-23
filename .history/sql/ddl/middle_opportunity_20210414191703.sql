@@ -1,10 +1,10 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmaster"."master_opportunity";
-DROP SEQUENCE IF EXISTS "sfdcmaster"."master_opportunity_id_seq";
-CREATE SEQUENCE "sfdcmaster"."master_opportunity_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "middle_opportunity";
+DROP SEQUENCE IF EXISTS middle_opportunity_id_seq;
+CREATE SEQUENCE middle_opportunity_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
-CREATE TABLE "sfdcmaster"."master_opportunity" (
+CREATE TABLE "sfdcmiddle"."middle_opportunity" (
     "vctr__ownerid__c" character varying(1300),
     "hasopportunitylineitem" boolean,
     "expectedrevenue" double precision,
@@ -53,13 +53,13 @@ CREATE TABLE "sfdcmaster"."master_opportunity" (
     "id" integer  NOT NULL,
     "_hc_lastop" character varying(32),
     "_hc_err" text,
-    CONSTRAINT "hcu_idx_master_opportunity_sfid" UNIQUE ("sfid"),
-    CONSTRAINT "master_opportunity_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "hcu_idx_middle_opportunity_sfid" UNIQUE ("sfid"),
+    CONSTRAINT "middle_opportunity_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
-CREATE INDEX "hc_idx_master_opportunity_lastmodifieddate" ON "sfdcmaster"."master_opportunity" USING btree ("lastmodifieddate");
+CREATE INDEX "hc_idx_middle_opportunity_lastmodifieddate" ON "sfdcmiddle"."middle_opportunity" USING btree ("lastmodifieddate");
 
-CREATE INDEX "hc_idx_master_opportunity_systemmodstamp" ON "sfdcmaster"."master_opportunity" USING btree ("systemmodstamp");
+CREATE INDEX "hc_idx_middle_opportunity_systemmodstamp" ON "sfdcmiddle"."middle_opportunity" USING btree ("systemmodstamp");
 
 
 -- 2021-04-14 09:44:16.916878+00

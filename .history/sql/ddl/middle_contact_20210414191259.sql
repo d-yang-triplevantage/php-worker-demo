@@ -1,10 +1,10 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmaster"."master_contact";
-DROP SEQUENCE IF EXISTS "sfdcmaster"."master_contact_id_seq";
-CREATE SEQUENCE "sfdcmaster"."master_contact_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "middle_contact";
+DROP SEQUENCE IF EXISTS middle_contact_id_seq;
+CREATE SEQUENCE middle_contact_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
-CREATE TABLE "sfdcmaster"."master_contact" (
+CREATE TABLE "sfdcmiddle"."middle_contact" (
     "vctr__ownerid__c" character varying(1300),
     "jigsaw" character varying(20),
     "lastname" character varying(80),
@@ -65,16 +65,16 @@ CREATE TABLE "sfdcmaster"."master_contact" (
     "otherlongitude" double precision,
     "lastcuupdatedate" timestamp,
     "sfid" character varying(18),
-    "id" integer NOT NULL,
+    "id" integer  NOT NULL,
     "_hc_lastop" character varying(32),
     "_hc_err" text,
-    CONSTRAINT "master_contact_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "hcu_idx_master_contact_sfid" UNIQUE ("sfid")
+    CONSTRAINT "middle_contact_pkey" PRIMARY KEY ("id"),
+    CONSTRAINT "hcu_idx_middle_contact_sfid" UNIQUE ("sfid")
 ) WITH (oids = false);
 
-CREATE INDEX "hc_idx_master_contact_lastmodifieddate" ON "sfdcmaster"."master_contact" USING btree ("lastmodifieddate");
+CREATE INDEX "hc_idx_middle_contact_lastmodifieddate" ON "sfdcmiddle"."middle_contact" USING btree ("lastmodifieddate");
 
-CREATE INDEX "hc_idx_master_contact_systemmodstamp" ON "sfdcmaster"."master_contact" USING btree ("systemmodstamp");
+CREATE INDEX "hc_idx_middle_contact_systemmodstamp" ON "sfdcmiddle"."middle_contact" USING btree ("systemmodstamp");
 
 
 -- 2021-04-14 09:44:09.39641+00

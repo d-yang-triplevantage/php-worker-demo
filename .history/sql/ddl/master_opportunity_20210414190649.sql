@@ -1,8 +1,8 @@
 -- Adminer 4.8.0 PostgreSQL 13.2 (Ubuntu 13.2-1.pgdg20.04+1) dump
 
-DROP TABLE IF EXISTS "sfdcmaster"."master_opportunity";
-DROP SEQUENCE IF EXISTS "sfdcmaster"."master_opportunity_id_seq";
-CREATE SEQUENCE "sfdcmaster"."master_opportunity_id_seq" INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+DROP TABLE IF EXISTS "master_opportunity";
+DROP SEQUENCE IF EXISTS master_opportunity_id_seq;
+CREATE SEQUENCE master_opportunity_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
 
 CREATE TABLE "sfdcmaster"."master_opportunity" (
     "vctr__ownerid__c" character varying(1300),
