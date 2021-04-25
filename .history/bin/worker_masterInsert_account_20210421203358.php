@@ -20,7 +20,7 @@ try{
    //SQL作成
 
 
-    $sql = 'select a.id as aid,a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.website as bwebsite,b.name as bname from sfdcmiddle.middle_account a ,sfdcmiddle.middle_account b
+    $sql = 'select a.sfid as asfid,a.schema as aschema,b.sfid as bsfid,b.schema as bschema,b.website as bwebsite,b.name as bname from sfdcmiddle.middle_account a ,sfdcmiddle.middle_account b
                where a.website = b.website
                  and a.name = b.name
                  and  a.schema != b.schema';
@@ -37,14 +37,12 @@ try{
   foreach ($stmt as $row) {
       //指定Columnを一覧表示
 
-      print($row['aid'].' ');
       print($row['asfid'].' ');
       print($row['aschema'].' ');
       print($row['bsfid'].' ');
       print($row['bschema'].' ');
       print($row['bwebsite'].' ');
       print($row['bname'].' ');
-      $aid=$row['aid'];
      $asfid=$row['asfid'];
      $aschema=$row['aschema'];
      $bsfid=$row['bsfid'];
@@ -72,8 +70,8 @@ try{
            $vctr__vectorno__c = seqget('account');
            $website=$keynew[0];
            $name=$keynew[1];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(id,website,name,vctr__vectorno__c) VALUES(:aid,:website,:name,:vctr__vectorno__c)');
-           $prepIns->execute(array($aid,$website,$name,$vctr__vectorno__c));
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(website,name,vctr__vectorno__c) VALUES(:website,:name,:vctr__vectorno__c)');
+           $prepIns->execute(array($website,$name,$vctr__vectorno__c));
 
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_account set vctr__vectorno__c=:vctr__vectorno__c WHERE website = :website and name=:name';
@@ -89,8 +87,8 @@ try{
            $vctr__vectorno__c = seqget('account');
            $website=$keynew[0];
            $name=$keynew[1];
-           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(id,website,name,vctr__vectorno__c) VALUES(:aid,:website,:name,:vctr__vectorno__c)');
-           $prepIns->execute(array($aid,$website,$name,$vctr__vectorno__c));
+           $prepIns = $dbh->prepare('INSERT INTO sfdcmaster.master_account(website,name,vctr__vectorno__c) VALUES(:website,:name,:vctr__vectorno__c)');
+           $prepIns->execute(array($website,$name,$vctr__vectorno__c));
 
            //中間テーブルに統合IDを反映
           $sqlUpdate = 'update sfdcmiddle.middle_account set vctr__vectorno__c=:vctr__vectorno__c WHERE website = :website and name=:name';
